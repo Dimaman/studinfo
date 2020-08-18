@@ -1,0 +1,201 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/add_news_frame"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_up"
+        style="@style/toolbar"
+        app:contentInsetStart="0dp"
+        android:elevation="4dp">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/text_toolbar_up"
+                style="@style/toolbar_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:text="Добавить запись"/>
+
+            <ImageView
+                android:id="@+id/icon_add_post"
+                style="@style/button_toolbar"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:src="@drawable/ic_check_selector"
+                />
+            <ImageView
+                android:id="@+id/icon_exit"
+                style="@style/button_toolbar"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:src="@drawable/ic_close_selector"
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar_up">
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+    <ImageView
+        android:id="@+id/post_image"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:src="@drawable/reg_icon"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_margin="10dp"/>
+
+        <View
+            android:id="@+id/unity_view"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="10dp"
+            app:layout_constraintTop_toBottomOf="@id/post_image"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/image_unity"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintStart_toStartOf="@id/unity_view"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            app:layout_constraintTop_toTopOf="@id/unity_view"
+            app:layout_constraintBottom_toBottomOf="@id/unity_view"/>
+
+
+        <TextView
+            android:id="@+id/unity_text"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:text="Название объединения"
+            app:layout_constraintStart_toEndOf="@id/image_unity"
+            app:layout_constraintTop_toTopOf="@id/unity_view"
+            app:layout_constraintEnd_toEndOf="@id/unity_view"
+
+            android:layout_marginTop="5dp"
+            android:textSize="20sp"
+            android:layout_marginStart="10dp"/>
+
+    <EditText
+        android:id="@+id/title_activ"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/unity_view"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginTop="10dp"
+        android:inputType="textShortMessage"
+        android:textColor="@color/dialog_text"
+        android:hint="Введите название"
+        android:textColorHint="@color/colorEditText"/>
+
+    <EditText
+        android:id="@+id/text_active"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/title_activ"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp"
+        android:textColor="@color/dialog_text"
+        android:textColorHint="@color/colorEditText"
+        android:hint="Введите описание"/>
+
+        <ImageView
+            android:id="@+id/cal_ic"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:layout_constraintTop_toBottomOf="@id/text_active"
+            android:src="@drawable/ic_calendar_selector"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"/>
+
+        <EditText
+            android:id="@+id/cal_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/cal_ic"
+            app:layout_constraintBottom_toBottomOf="@id/cal_ic"
+            app:layout_constraintStart_toEndOf="@id/cal_ic"
+            android:layout_marginStart="5dp"
+            android:hint="01.01.2020"
+            android:textColor="@color/dialog_text"
+            android:textColorHint="@color/colorEditText"/>
+
+    <TextView
+        android:id="@+id/inter_text"
+        style="@style/view_text"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cal_ic"
+        android:text="Интересы"
+        />
+
+    <ImageButton
+        android:id="@+id/ch_box_razv"
+        android:src="@drawable/party_ic"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toBottomOf="@id/inter_text"
+        app:layout_constraintStart_toStartOf="parent"
+        style="@style/checkbocks"/>
+
+    <ImageButton
+        android:id="@+id/ch_box_nauka"
+        android:src="@drawable/science_ic"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toBottomOf="@id/inter_text"
+        app:layout_constraintStart_toEndOf="@id/ch_box_razv"
+        style="@style/checkbocks"/>
+
+    <ImageButton
+        android:id="@+id/ch_box_sport"
+        android:src="@drawable/sport_ic"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toBottomOf="@id/inter_text"
+        app:layout_constraintStart_toEndOf="@id/ch_box_nauka"
+        style="@style/checkbocks"/>
+
+    <ImageButton
+        android:id="@+id/ch_box_tvor"
+        android:src="@drawable/art_ic"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toBottomOf="@id/ch_box_razv"
+        app:layout_constraintStart_toStartOf="parent"
+        style="@style/checkbocks"/>
+
+    <ImageButton
+        android:id="@+id/ch_box_work"
+        android:src="@drawable/work_ic"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toBottomOf="@id/ch_box_razv"
+        app:layout_constraintStart_toEndOf="@id/ch_box_razv"
+        style="@style/checkbocks"/>
+
+    <ImageButton
+        android:id="@+id/ch_box_days"
+        android:src="@drawable/days_ic"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toBottomOf="@id/ch_box_razv"
+        app:layout_constraintStart_toEndOf="@id/ch_box_work"
+        style="@style/checkbocks"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+    </ScrollView>
+</RelativeLayout>

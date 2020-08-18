@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#202e1d</color>
+    <color name="colorPrimaryDark">#1c281a</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="colorBG">#141e13</color>
+    <color name="colorEditText">#677e64</color>
+    <color name="colorBgToolbar">#202e1d</color>
+    <color name="colorBgView">#1c281a</color>
+    <color name="colorChTest">#486642</color>
+    <color name="colorText">#ffffff</color>
+    <color name="colorButton">#4c9141</color>
+    <color name="colorBigText">#83c16e</color>
+
+    <color name="grey">#AAA</color>
+    <color name="black">#000</color>
+
+    <color name="dialog_background">#283593</color>
+    <color name="dialog_text">#EEEEEE</color>
+    <color name="dialog_buttons_color">#C62828</color>
+    <color name="dialog_list_item">#FFF</color>
+
+</resources>
