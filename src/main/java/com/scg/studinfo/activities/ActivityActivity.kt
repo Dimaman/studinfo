@@ -172,7 +172,6 @@ class FeedAdapter (private val posts: List<FeedPost>,
                 openPopmenu(holder.view.icon_edit_post, posts[position].uidNews!!)
             }
         holder.view.image_activ.loadImage(posts[position].image!!, true)
-        correctGradient(holder.view, position)
         holder.view.title_activ.text = posts[position].title
         holder.view.activ_who.text = unity.findLast { it.uid == posts[position].uid }!!.shortname
         firebase.currentUserReference()

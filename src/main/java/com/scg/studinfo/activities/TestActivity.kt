@@ -25,6 +25,8 @@ class TestActivity : AppCompatActivity() {
 
         mFirebase = FireBaseHelper(this)
 
+        icon_back.setOnClickListener { finish() }
+
         mFirebase.uploadUnity {
             creativeViewPagerView.setCreativeViewPagerAdapter(UnityCreativeListAdapter(it, this))
         }

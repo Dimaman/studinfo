@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "486988508872",
+    "firebase_url": "https://studinform-1.firebaseio.com",
+    "project_id": "studinform-1",
+    "storage_bucket": "studinform-1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:486988508872:android:d8356e276e8a784ac2fffd",
+        "android_client_info": {
+          "package_name": "com.scg.studinfo"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "486988508872-fq9tmln79ovveg7glhkkvdhekf8dscpt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.scg.studinfo",
+            "certificate_hash": "d6b972c2eb819af60f2d55fa37cb607bee09ff02"
+          }
+        },
+        {
+          "client_id": "486988508872-kof8gcph3ka6v9o0dqoh0ch37cj52e0h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBJTRsLUkYoV4JFNnGuqx8ocaxdayMtdes"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "486988508872-kof8gcph3ka6v9o0dqoh0ch37cj52e0h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
