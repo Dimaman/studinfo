@@ -1248,6 +1248,9 @@ drawable ic_eye_click
 drawable ic_eye_selector
 drawable ic_launcher_background
 drawable ic_launcher_foreground
+drawable ic_login
+drawable ic_login_click
+drawable ic_login_selector
 drawable ic_more
 drawable ic_more_click
 drawable ic_more_selector
@@ -1502,6 +1505,7 @@ id icon_done
 id icon_edit_post
 id icon_exit
 id icon_group
+id icon_in
 id icon_only
 id icon_out
 id icon_setting
@@ -1776,9 +1780,11 @@ layout abc_tooltip
 layout activity_activity
 layout activity_add_activ
 layout activity_add_info
+layout activity_add_local_info
 layout activity_add_persons_at_unity
 layout activity_add_unity
 layout activity_edit_info
+layout activity_edit_local_info
 layout activity_edit_unity
 layout activity_item_news
 layout activity_list_unity

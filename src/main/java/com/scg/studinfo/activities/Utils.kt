@@ -36,17 +36,14 @@ fun Context.showToast(text: String, duration: Int = Toast.LENGTH_SHORT) {
 }
 
 
-const val stringVersion = "1.0.40"
+const val stringVersion = "1.1.0"
 
-//загрузка новостей
-var itemNews: String? = null
-var imageNews: Bitmap? = null
+//Сохраненные данные
+val PERSON_INFO = "PERSON_INFO"
+val APP_PREFERENCES = "mysettings"
 
-var selUnityActiv = 0
-var selUnity: Unity? = null
-
-//добавление объединения
-var usersAtUnity = mutableListOf<String>()
+val personGroup = "person_group"
+val personKey = "person_key"
 
 fun getStrSaveSetting(): MutableList<String> {
     val strCache = mutableListOf<String>()
@@ -58,8 +55,7 @@ fun getStrSaveSetting(): MutableList<String> {
     strCache.add(5, "ch_box_days")
     return strCache
 }
-
-fun getSave(activity: Activity): MutableList<Boolean> {
+fun getSaveSetting(activity: Activity): MutableList<Boolean> {
     val pref = activity.getSharedPreferences("mysettings", MODE_PRIVATE)
 
     val cache = mutableListOf<Boolean>()
@@ -71,6 +67,21 @@ fun getSave(activity: Activity): MutableList<Boolean> {
     cache.add(pref.getBoolean(getStrSaveSetting()[5], false))
     return cache
 }
+
+
+//загрузка новостей
+var itemNews: String? = null
+var imageNews: Bitmap? = null
+
+var selUnityActiv = 0
+var selUnity: Unity? = null
+
+//добавление объединения
+var usersAtUnity = mutableListOf<String>()
+
+
+
+
 
 fun getDatetime(): Calendar {
     val calendar = Calendar.getInstance()

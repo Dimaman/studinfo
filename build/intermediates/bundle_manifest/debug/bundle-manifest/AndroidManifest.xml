@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.scg.studinfo"
-    android:versionCode="40"
-    android:versionName="1.0.40" >
+    android:versionCode="50"
+    android:versionName="1.1.0" >
 
     <uses-sdk
         android:minSdkVersion="24"
@@ -32,6 +32,8 @@
         android:supportsRtl="true"
         android:testOnly="true"
         android:theme="@style/AppTheme" >
+        <activity android:name="com.scg.studinfo.activities.EditlocalInfoActivity" />
+        <activity android:name="com.scg.studinfo.activities.AddLocalInfoActivity" />
         <activity android:name="com.scg.studinfo.activities.TestActivity" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"

@@ -38,24 +38,29 @@ class ProfileActivity : BaseActivity(2) {
 
         mFireBase = FireBaseHelper(this)
 
-        mFireBase.currentUserReference()
-            .addListenerForSingleValueEvent(ValueEventListenerAdapter {
-                mUser = it.getValue(User::class.java)!!
-                unity_image.loadUserPhoto(mUser.photo)
-                if(mUser.roles == "admin") {
-                    users_btn.visibility = View.VISIBLE
-                    users_btn_text.visibility = View.VISIBLE
-                    add_unity_btn.visibility = View.VISIBLE
-                    add_unity_btn_text.visibility = View.VISIBLE
-                }
-            })
-        icon_setting.setOnClickListener {
-            startActivity(Intent(this, EditInfoActivity::class.java))
+        if(mFireBase.isLogged) {
+            mFireBase.currentUserReference()
+                .addListenerForSingleValueEvent(ValueEventListenerAdapter {
+                    mUser = it.getValue(User::class.java)!!
+                    if (mUser.roles == "admin") {
+                        users_btn.visibility = View.VISIBLE
+                        users_btn_text.visibility = View.VISIBLE
+                        add_unity_btn.visibility = View.VISIBLE
+                        add_unity_btn_text.visibility = View.VISIBLE
+                    }
+                })
         }
-
+        icon_setting.setOnClickListener { goEdit() }
 
     }
 
+    private fun goEdit() {
+        if (mFireBase.isLogged) {
+            startActivity(Intent(this, EditInfoActivity::class.java))
+        } else {
+            startActivity(Intent(this, EditlocalInfoActivity::class.java))
+        }
+    }
     private fun goUnityList() {
         startActivity(Intent(this, TestActivity::class.java))
     }
@@ -67,15 +72,6 @@ class ProfileActivity : BaseActivity(2) {
 
     override fun onResume() {
         super.onResume()
-        mFireBase.currentUserReference()
-            .addListenerForSingleValueEvent(ValueEventListenerAdapter {
-                mUser = it.getValue(User::class.java)!!
-                unity_image.loadUserPhoto(mUser.photo)
-                if(mUser.roles == "admin") {
-                    users_btn.visibility = View.VISIBLE
-                    users_btn_text.visibility = View.VISIBLE
-                }
-            })
     }
 
     fun goUsersList() {

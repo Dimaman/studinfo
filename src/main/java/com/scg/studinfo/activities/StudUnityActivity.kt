@@ -49,14 +49,16 @@ class StudUnityActivity : AppCompatActivity() {
 
         mFirebase = FireBaseHelper(this)
 
-        mFirebase.currentUserReference()
-            .addListenerForSingleValueEvent(ValueEventListenerAdapter {
-                val user = it.getValue(User::class.java)!!
-                if(user.roles == "admin") {
-                    edit_unity_btn.visibility = View.VISIBLE
-                    edit_unity_btn_text.visibility = View.VISIBLE
-                }
-            })
+        if(mFirebase.isLogged) {
+            mFirebase.currentUserReference()
+                .addListenerForSingleValueEvent(ValueEventListenerAdapter {
+                    val user = it.getValue(User::class.java)!!
+                    if (user.roles == "admin") {
+                        edit_unity_btn.visibility = View.VISIBLE
+                        edit_unity_btn_text.visibility = View.VISIBLE
+                    }
+                })
+        }
 
         unity_image.loadUserPhoto(selUnity!!.img)
         title_unity.text = selUnity!!.name
@@ -127,8 +129,6 @@ class PageFragment : Fragment() {
                                     sortPosts,
                                     posts,
                                     activity!!,
-                                    mFirebase.chUid(),
-                                    users,
                                     it,
                                     context!!
                                 )

@@ -1,5 +1,6 @@
 package com.scg.studinfo.activities
 
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
@@ -20,7 +21,7 @@ class AddInfoActivity : AppCompatActivity() {
     private lateinit var mDatabase: DatabaseReference
 
     private lateinit var pref: SharedPreferences
-    private val APP_PREFERENCES = "mysettings"
+    private lateinit var prefPers: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,12 +31,13 @@ class AddInfoActivity : AppCompatActivity() {
         mDatabase = FirebaseDatabase.getInstance().reference
         //load from database
         icon_check.isEnabled = false
-        var groupList: List<String> = listOf()
         mDatabase.child("timetable").addListenerForSingleValueEvent(ValueEventListenerAdapter {
-            groupList = it.children.map { it.key!! }
+            val groupList = it.children.map { it.key!! }
             group_input.setAdapter(ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, groupList))
         })
 
+
+        prefPers = getSharedPreferences(PERSON_INFO, MODE_PRIVATE)
         pref = getSharedPreferences(APP_PREFERENCES, MODE_PRIVATE)
 
 
@@ -47,7 +49,6 @@ class AddInfoActivity : AppCompatActivity() {
         ch_box_days.setOnClickListener {interSel(ch_box_days, 5) }
 
         group_input.threshold = 3
-
 
         mDatabase.child("users").child(mAuth.currentUser!!.uid)
             .addListenerForSingleValueEvent(ValueEventListenerAdapter {

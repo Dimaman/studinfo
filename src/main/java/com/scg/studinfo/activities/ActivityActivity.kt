@@ -38,45 +38,33 @@ class ActivityActivity : BaseActivity(0) {
         icon_add_new.visibility = View.INVISIBLE
 
         mFirebase = FireBaseHelper(this)
-        val mUid = mFirebase.auth.currentUser!!.uid
-        mFirebase.currentUserReference()
-            .addListenerForSingleValueEvent(ValueEventListenerAdapter {
-                val user = it.getValue(User::class.java)!!.copy(uid = it.key)
-                if (user.roles == "admin" || user.roles == "moder") {
-                    icon_add_new.visibility = View.VISIBLE
-                }
-            })
+        //val mUid = mFirebase.auth.currentUser!!.uid
+        if(mFirebase.auth.currentUser != null) {
+            mFirebase.currentUserReference()
+                .addListenerForSingleValueEvent(ValueEventListenerAdapter {
+                    val user = it.getValue(User::class.java)!!.copy(uid = it.key)
+                    if (user.roles == "admin" || user.roles == "moder") {
+                        icon_add_new.visibility = View.VISIBLE
+                    }
+                })
+        }
 
-        mFirebase.database.child("users")
-            .addListenerForSingleValueEvent(ValueEventListenerAdapter {
-                val users = it.children.map {
-                    it.getValue(User::class.java)!!
-                        .copy(uid = it.key)
+        mFirebase.database.child("feed-posts")
+            .addValueEventListener(ValueEventListenerAdapter {
+                val posts = it.children.map {
+                    it.getValue(FeedPost::class.java)!!.copy(uidNews = it.key)
                 }
-                mFirebase.database.child("feed-posts")
-                    .addValueEventListener(ValueEventListenerAdapter {
-                        val posts = it.children.map {
-                                it.getValue(FeedPost::class.java)!!.copy(uidNews = it.key)
-                            }
-                            .sortedByDescending { it.timestampDate() }
-                        val sortPosts: MutableList<FeedPost> = mutableListOf(FeedPost())
-                        val sortOldPosts: MutableList<FeedPost> = mutableListOf(FeedPost())
-                        sortPosts.clear()
-                        sortOldPosts.clear()
-                        for (item in posts) {
-                            if (!item.isDelete) {
-                                val cacheSave = getSave(this)
-                                if(checkBtn(cacheSave.toList())) {
-                                    if (item.kategories != null) {
-                                        if (checkBtn(cacheSave.toList(), item.kategories)) {
-                                            if (item.startTime != null) {
-                                                if (item.startTime > System.currentTimeMillis()) {
-                                                    sortPosts.add(item)
-                                                } else sortOldPosts.add(item)
-                                            } else sortOldPosts.add(item)
-                                        }
-                                    }
-                                } else {
+                    .sortedByDescending { it.timestampDate() }
+                val sortPosts: MutableList<FeedPost> = mutableListOf(FeedPost())
+                val sortOldPosts: MutableList<FeedPost> = mutableListOf(FeedPost())
+                sortPosts.clear()
+                sortOldPosts.clear()
+                for (item in posts) {
+                    if (!item.isDelete) {
+                        val cacheSave = getSaveSetting(this)
+                        if (checkBtn(cacheSave.toList())) {
+                            if (item.kategories != null) {
+                                if (checkBtn(cacheSave.toList(), item.kategories)) {
                                     if (item.startTime != null) {
                                         if (item.startTime > System.currentTimeMillis()) {
                                             sortPosts.add(item)
@@ -84,25 +72,30 @@ class ActivityActivity : BaseActivity(0) {
                                     } else sortOldPosts.add(item)
                                 }
                             }
+                        } else {
+                            if (item.startTime != null) {
+                                if (item.startTime > System.currentTimeMillis()) {
+                                    sortPosts.add(item)
+                                } else sortOldPosts.add(item)
+                            } else sortOldPosts.add(item)
                         }
-                        sortPosts.sortByDescending { it.startTime }
-                        val lastListPosts = mutableListOf(FeedPost())
-                        lastListPosts.clear()
-                        lastListPosts.add(FeedPost(uidNews = "split", uid = "Актуальное"))
-                        lastListPosts.addAll(sortPosts)
-                        lastListPosts.add(FeedPost(uidNews = "split", uid = "Нектуальное"))
-                        lastListPosts.addAll(sortOldPosts)
-                        mFirebase.uploadUnity {
+                    }
+                }
+                sortPosts.sortByDescending { it.startTime }
+                val lastListPosts = mutableListOf(FeedPost())
+                lastListPosts.clear()
+                lastListPosts.add(FeedPost(uidNews = "split", uid = "Актуальное"))
+                lastListPosts.addAll(sortPosts)
+                lastListPosts.add(FeedPost(uidNews = "split", uid = "Нектуальное"))
+                lastListPosts.addAll(sortOldPosts)
+                mFirebase.uploadUnity {
 
-                            feed_recycler.adapter = FeedAdapter(
-                                lastListPosts, posts, this, mUid,
-                                users, it, this
-                            )
-                            feed_recycler.layoutManager = LinearLayoutManager(this)
-                        }
-                    })
+                    feed_recycler.adapter = FeedAdapter(
+                        lastListPosts, posts, this, it, this
+                    )
+                    feed_recycler.layoutManager = LinearLayoutManager(this)
+                }
             })
-
 
         icon_add_new.setOnClickListener { addImageMenu() }
     }
@@ -127,7 +120,6 @@ class ActivityActivity : BaseActivity(0) {
 
 class FeedAdapter (private val posts: List<FeedPost>,
                    private val allPosts: List<FeedPost>, private val activ: Activity,
-                   private val mUid: String, private val users: List<User>,
                    private val unity: List<Unity>, private val context: Context)
     : RecyclerView.Adapter<FeedAdapter.ViewHolder>() {
     class ViewHolder (val view: View) : RecyclerView.ViewHolder(view)
@@ -150,36 +142,38 @@ class FeedAdapter (private val posts: List<FeedPost>,
             holder.view.image_activ.loadImage(posts[position].image!!, true)
             correctGradient(holder.view, position)
             if (posts[position].startTime != null) {
-                if (posts[position].startTime!! < System.currentTimeMillis()){
-                    holder.view.image_activ.colorFilter = ColorMatrixColorFilter(ColorMatrix().apply { setSaturation(0f)})
-                    holder.view.domination_color_bg.background.colorFilter = ColorMatrixColorFilter(ColorMatrix().apply { setSaturation(0f)})
+                if (posts[position].startTime!! < System.currentTimeMillis()) {
+                    holder.view.image_activ.colorFilter =
+                        ColorMatrixColorFilter(ColorMatrix().apply { setSaturation(0f) })
+                    holder.view.domination_color_bg.background.colorFilter =
+                        ColorMatrixColorFilter(ColorMatrix().apply { setSaturation(0f) })
                 }
-            } else {
-                holder.view.image_activ.colorFilter = ColorMatrixColorFilter(ColorMatrix().apply { setSaturation(0f)})
-                holder.view.domination_color_bg.background.colorFilter = ColorMatrixColorFilter(ColorMatrix().apply { setSaturation(0f)})
+            }
+            else {
+                holder.view.image_activ.colorFilter =
+                    ColorMatrixColorFilter(ColorMatrix().apply { setSaturation(0f) })
+                holder.view.domination_color_bg.background.colorFilter =
+                    ColorMatrixColorFilter(ColorMatrix().apply { setSaturation(0f) })
             }
             holder.view.title_activ.text = posts[position].title
             holder.view.activ_who.text =
                 unity.findLast { it.uid == posts[position].uid }!!.shortname
-
-            firebase.currentUserReference()
-                .addListenerForSingleValueEvent(ValueEventListenerAdapter {
-                    val user = it.getValue(User::class.java)!!.copy(uid = it.key)
-                    holder.view.icon_edit_post.isEnabled = user.roles == "admin"
-                })
-
+            if (firebase.isLogged) {
+                firebase.currentUserReference()
+                    .addListenerForSingleValueEvent(ValueEventListenerAdapter {
+                        val user = it.getValue(User::class.java)!!.copy(uid = it.key)
+                        holder.view.icon_edit_post.isEnabled = user.roles == "admin"
+                    })
+            } else {
+                holder.view.icon_edit_post.isEnabled = false
+            }
             holder.view.icon_edit_post.setOnClickListener {
                 openPopmenu(holder.view.icon_edit_post, posts[position].uidNews!!)
             }
-        holder.view.image_activ.loadImage(posts[position].image!!, true)
-        holder.view.title_activ.text = posts[position].title
-        holder.view.activ_who.text = unity.findLast { it.uid == posts[position].uid }!!.shortname
-        firebase.currentUserReference()
-            .addListenerForSingleValueEvent(ValueEventListenerAdapter {
-                val user = it.getValue(User::class.java)!!.copy(uid = it.key)
-                holder.view.icon_edit_post.isEnabled = user.roles == "admin"
-            })
-
+            holder.view.image_activ.loadImage(posts[position].image!!, true)
+            holder.view.title_activ.text = posts[position].title
+            holder.view.activ_who.text =
+                unity.findLast { it.uid == posts[position].uid }!!.shortname
             holder.view.domination_color_bg.setOnClickListener { openView(position, holder.view) }
             holder.view.image_activ.setOnClickListener { openView(position, holder.view) }
             holder.view.title_activ.setOnClickListener { openView(position, holder.view) }

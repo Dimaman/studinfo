@@ -1,5 +1,6 @@
 package com.scg.studinfo.activities
 
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -14,9 +15,7 @@ import com.scg.studinfo.utils.FireBaseHelper
 import com.scg.studinfo.views.PasswordDialog
 import com.scg.studinfo.models.User
 import kotlinx.android.synthetic.main.activity_edit_info.*
-import kotlinx.android.synthetic.main.activity_edit_info.group_input
-import kotlinx.android.synthetic.main.activity_edit_info.icon_check
-import kotlinx.android.synthetic.main.activity_edit_info.name_input
+
 
 
 class EditInfoActivity : AppCompatActivity(), PasswordDialog.Listener {
@@ -26,6 +25,8 @@ class EditInfoActivity : AppCompatActivity(), PasswordDialog.Listener {
     private lateinit var cameraHelper: CameraHelper
 
     private lateinit var pref: SharedPreferences
+    private lateinit var prefPers: SharedPreferences
+
     private val APP_PREFERENCES = "mysettings"
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,7 +42,8 @@ class EditInfoActivity : AppCompatActivity(), PasswordDialog.Listener {
         group_input.isEnabled = false
         email_input.isEnabled = false
 
-        //интересы <
+        //интересы
+        prefPers = getSharedPreferences(PERSON_INFO, MODE_PRIVATE)
         pref = getSharedPreferences(APP_PREFERENCES, MODE_PRIVATE)
 
         getSavedInter()
@@ -88,7 +90,8 @@ class EditInfoActivity : AppCompatActivity(), PasswordDialog.Listener {
                 User(
                     email = email_input.text.toString(),
                     group = group_input.text.toString(),
-                    name = name_input.text.toString()
+                    name = name_input.text.toString(),
+                    uid = null
                 )
             val error = validate(mPendingEmail)
             if (error == null) {
@@ -104,23 +107,6 @@ class EditInfoActivity : AppCompatActivity(), PasswordDialog.Listener {
         icon_exit.setOnClickListener {
             finish()
         }
-
-        unity_image.setOnClickListener {
-            val popMenu = showPopup(this, unity_image, R.menu.add_mage_menu)
-                popMenu.setOnMenuItemClickListener {
-                    return@setOnMenuItemClickListener when (it.itemId) {
-                        R.id.camera_checked -> {
-                            cameraHelper.takeCameraPicture()
-                            true
-                        }
-                        R.id.image_checked -> {
-                            cameraHelper.takePicture()
-                            true
-                        }
-                        else -> false
-                    }
-            }
-        }
     }
 
     private fun interSel(btn: ImageButton, ind: Int) {
@@ -131,28 +117,13 @@ class EditInfoActivity : AppCompatActivity(), PasswordDialog.Listener {
     }
 
     fun getSavedInter() {
-        val cache = getSave(this)
+        val cache = getSaveSetting(this)
         ch_box_razv.isSelected = cache[0]
         ch_box_nauka.isSelected = cache[1]
         ch_box_sport.isSelected = cache[2]
         ch_box_tvor.isSelected = cache[3]
         ch_box_work.isSelected = cache[4]
         ch_box_days.isSelected = cache[5]
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == cameraHelper.REQUEST_CODE && resultCode == RESULT_OK) {
-            mFirebaseHelper.uploadUserPhoto(data!!.data!!) {
-                mFirebaseHelper.getUrl("users/${mFirebaseHelper.auth.currentUser!!.uid}/photo") {
-                    val photoUrl = it.toString()
-                    mFirebaseHelper.updateUserPhoto(photoUrl) {
-                        mUser = mUser.copy(photo = photoUrl)
-                        unity_image.loadUserPhoto(photoUrl)
-                        showToast("сохранено")
-                    }
-                }
-            }
-        }
     }
 
     private fun goOut() {
@@ -171,9 +142,11 @@ class EditInfoActivity : AppCompatActivity(), PasswordDialog.Listener {
         if(user.group != mUser.group) updatesMap["group"] = user.group
 
         mFirebaseHelper.updateUser(updatesMap) {
-                showToast("Сохранено")
-                finish()
-
+            val saveIs = prefPers.edit()
+            saveIs.putString(personGroup, user.group)
+            saveIs.apply()
+            showToast("Сохранено")
+            finish()
         }
 
     }

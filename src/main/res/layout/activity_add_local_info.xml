@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.AddLocalInfoActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_up"
+        style="@style/toolbar"
+        app:contentInsetStart="0dp"
+        android:elevation="4dp"
+        tools:ignore="MissingConstraints">
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/text_toolbar_up"
+                style="@style/toolbar_text"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:text="Введите информацию"/>
+
+            <ImageView
+                android:id="@+id/icon_check"
+                style="@style/button_toolbar"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:src="@drawable/ic_check_selector"
+                />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.appcompat.widget.Toolbar>
+
+    <TextView
+        android:id="@+id/group_label"
+        style="@style/view_text"
+        android:text="Группа"
+        app:layout_constraintTop_toBottomOf="@id/toolbar_up"
+        app:layout_constraintStart_toStartOf="parent"/>
+
+    <AutoCompleteTextView
+        android:id="@+id/group_input"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/group_label"
+        android:layout_marginStart="20dp"
+        android:inputType="textShortMessage"
+        android:textColor="@color/colorText"
+        android:layout_marginEnd="20dp"/>
+
+    <TextView
+        android:id="@+id/inter_text"
+        app:layout_constraintStart_toStartOf="parent"
+        style="@style/view_text"
+        app:layout_constraintTop_toBottomOf="@id/group_input"
+        android:text="Интересы"
+        />
+
+    <ImageButton
+        android:id="@+id/ch_box_razv"
+        android:src="@drawable/party_ic"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toBottomOf="@id/inter_text"
+        app:layout_constraintStart_toStartOf="parent"
+        style="@style/checkbocks"/>
+
+    <ImageButton
+        android:id="@+id/ch_box_nauka"
+        android:src="@drawable/science_ic"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toBottomOf="@id/inter_text"
+        app:layout_constraintStart_toEndOf="@id/ch_box_razv"
+        style="@style/checkbocks"/>
+
+    <ImageButton
+        android:id="@+id/ch_box_sport"
+        android:src="@drawable/sport_ic"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toBottomOf="@id/inter_text"
+        app:layout_constraintStart_toEndOf="@id/ch_box_nauka"
+        style="@style/checkbocks"/>
+
+    <ImageButton
+        android:id="@+id/ch_box_tvor"
+        android:src="@drawable/art_ic"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toBottomOf="@id/ch_box_razv"
+        app:layout_constraintStart_toStartOf="parent"
+        style="@style/checkbocks"/>
+
+    <ImageButton
+        android:id="@+id/ch_box_work"
+        android:src="@drawable/work_ic"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toBottomOf="@id/ch_box_razv"
+        app:layout_constraintStart_toEndOf="@id/ch_box_razv"
+        style="@style/checkbocks"/>
+
+    <ImageButton
+        android:id="@+id/ch_box_days"
+        android:src="@drawable/days_ic"
+        android:scaleType="centerCrop"
+        app:layout_constraintTop_toBottomOf="@id/ch_box_razv"
+        app:layout_constraintStart_toEndOf="@id/ch_box_work"
+        style="@style/checkbocks"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

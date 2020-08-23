@@ -136,12 +136,20 @@
         "source": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher_round.png"
     },
     {
+        "merged": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\build\\intermediates\\res\\merged\\release\\drawable-anydpi_ic_login_click.xml.flat",
+        "source": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\src\\main\\res\\drawable-anydpi\\ic_login_click.xml"
+    },
+    {
         "merged": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\build\\intermediates\\res\\merged\\release\\drawable-mdpi_ic_back.png.flat",
         "source": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\src\\main\\res\\drawable-mdpi\\ic_back.png"
     },
     {
         "merged": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\build\\intermediates\\res\\merged\\release\\drawable_ic_setting_selector.xml.flat",
         "source": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\src\\main\\res\\drawable\\ic_setting_selector.xml"
+    },
+    {
+        "merged": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi_ic_login_click.png.flat",
+        "source": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\src\\main\\res\\drawable-xhdpi\\ic_login_click.png"
     },
     {
         "merged": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\build\\intermediates\\res\\merged\\release\\drawable_ic_check_selector.xml.flat",
@@ -248,6 +256,10 @@
         "source": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\src\\main\\res\\drawable-xxhdpi\\ic_setting_click.png"
     },
     {
+        "merged": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\build\\intermediates\\res\\merged\\release\\layout_activity_edit_local_info.xml.flat",
+        "source": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\src\\main\\res\\layout\\activity_edit_local_info.xml"
+    },
+    {
         "merged": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\build\\intermediates\\res\\merged\\release\\layout_activity_test.xml.flat",
         "source": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\src\\main\\res\\layout\\activity_test.xml"
     },
@@ -274,6 +286,10 @@
     {
         "merged": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\build\\intermediates\\res\\merged\\release\\layout_fragment_info_unity.xml.flat",
         "source": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\src\\main\\res\\layout\\fragment_info_unity.xml"
+    },
+    {
+        "merged": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\build\\intermediates\\res\\merged\\release\\drawable-hdpi_ic_login.png.flat",
+        "source": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\src\\main\\res\\drawable-hdpi\\ic_login.png"
     },
     {
         "merged": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\build\\intermediates\\res\\merged\\release\\drawable_timetable_item_bg.xml.flat",
@@ -318,6 +334,10 @@
     {
         "merged": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\build\\intermediates\\res\\merged\\release\\mipmap-hdpi_ic_launcher_round.png.flat",
         "source": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\src\\main\\res\\mipmap-hdpi\\ic_launcher_round.png"
+    },
+    {
+        "merged": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\build\\intermediates\\res\\merged\\release\\drawable-mdpi_ic_login_click.png.flat",
+        "source": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\src\\main\\res\\drawable-mdpi\\ic_login_click.png"
     },
     {
         "merged": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi_ic_test.png.flat",
@@ -434,6 +454,10 @@
     {
         "merged": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\build\\intermediates\\res\\merged\\release\\color_login_btn_color.xml.flat",
         "source": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\src\\main\\res\\color\\login_btn_color.xml"
+    },
+    {
+        "merged": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi_ic_login_click.png.flat",
+        "source": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\src\\main\\res\\drawable-xxhdpi\\ic_login_click.png"
     },
     {
         "merged": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi_ic_eye.png.flat",
@@ -584,6 +608,10 @@
         "source": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\src\\main\\res\\drawable-mdpi\\ic_people.png"
     },
     {
+        "merged": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\build\\intermediates\\res\\merged\\release\\drawable-anydpi_ic_login.xml.flat",
+        "source": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\src\\main\\res\\drawable-anydpi\\ic_login.xml"
+    },
+    {
         "merged": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\build\\intermediates\\res\\merged\\release\\transition_item_news_transition.xml.flat",
         "source": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\src\\main\\res\\transition\\item_news_transition.xml"
     },
@@ -630,6 +658,10 @@
     {
         "merged": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi_ic_activity.png.flat",
         "source": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\src\\main\\res\\drawable-xxhdpi\\ic_activity.png"
+    },
+    {
+        "merged": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\build\\intermediates\\res\\merged\\release\\drawable_ic_login_selector.xml.flat",
+        "source": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\src\\main\\res\\drawable\\ic_login_selector.xml"
     },
     {
         "merged": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi_ic_setting.png.flat",
@@ -760,6 +792,10 @@
         "source": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\src\\main\\res\\drawable-anydpi\\ic_eye_click.xml"
     },
     {
+        "merged": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\build\\intermediates\\res\\merged\\release\\drawable-xxhdpi_ic_login.png.flat",
+        "source": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\src\\main\\res\\drawable-xxhdpi\\ic_login.png"
+    },
+    {
         "merged": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\build\\intermediates\\res\\merged\\release\\mipmap-xxhdpi_ic_launcher_round.png.flat",
         "source": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\src\\main\\res\\mipmap-xxhdpi\\ic_launcher_round.png"
     },
@@ -788,6 +824,10 @@
         "source": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\src\\main\\res\\drawable-xxhdpi\\ic_add_post_click.png"
     },
     {
+        "merged": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi_ic_login.png.flat",
+        "source": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\src\\main\\res\\drawable-xhdpi\\ic_login.png"
+    },
+    {
         "merged": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\build\\intermediates\\res\\merged\\release\\drawable-hdpi_ic_calendar.png.flat",
         "source": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\src\\main\\res\\drawable-hdpi\\ic_calendar.png"
     },
@@ -796,12 +836,20 @@
         "source": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\src\\main\\res\\drawable-anydpi\\ic_calendar_click.xml"
     },
     {
+        "merged": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\build\\intermediates\\res\\merged\\release\\drawable-mdpi_ic_login.png.flat",
+        "source": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\src\\main\\res\\drawable-mdpi\\ic_login.png"
+    },
+    {
         "merged": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\build\\intermediates\\res\\merged\\release\\drawable-mdpi_ic_calendar_click.png.flat",
         "source": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\src\\main\\res\\drawable-mdpi\\ic_calendar_click.png"
     },
     {
         "merged": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\build\\intermediates\\res\\merged\\release\\drawable-hdpi_ic_back.png.flat",
         "source": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\src\\main\\res\\drawable-hdpi\\ic_back.png"
+    },
+    {
+        "merged": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\build\\intermediates\\res\\merged\\release\\drawable-hdpi_ic_login_click.png.flat",
+        "source": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\src\\main\\res\\drawable-hdpi\\ic_login_click.png"
     },
     {
         "merged": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\build\\intermediates\\res\\merged\\release\\drawable_ic_more_selector.xml.flat",
@@ -846,6 +894,10 @@
     {
         "merged": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\build\\intermediates\\res\\merged\\release\\drawable-xhdpi_ic_add_post.png.flat",
         "source": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\src\\main\\res\\drawable-xhdpi\\ic_add_post.png"
+    },
+    {
+        "merged": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\build\\intermediates\\res\\merged\\release\\layout_activity_add_local_info.xml.flat",
+        "source": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\src\\main\\res\\layout\\activity_add_local_info.xml"
     },
     {
         "merged": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\build\\intermediates\\res\\merged\\release\\drawable_ic_add_post_selector.xml.flat",

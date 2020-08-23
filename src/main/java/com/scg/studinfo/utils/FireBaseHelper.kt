@@ -25,6 +25,39 @@ class FireBaseHelper (private val activity: Activity) {
     val database: DatabaseReference = FirebaseDatabase.getInstance()
         .reference
 
+    fun guestAdded(key: String?, onSuccess: (key: String) -> Unit) {
+        if(key != null) {
+            database.child("guest/$key/online").setValue(System.currentTimeMillis())
+                .addOnCompleteListener {
+                if (it.isSuccessful) {
+                    onSuccess(key)
+                } else {
+                    activity.showToast(it.exception!!.message!!)
+                }
+            }
+        } else {
+            val pushedPost = database.child("guest").push()
+            pushedPost.child("online").setValue(System.currentTimeMillis()).addOnCompleteListener {
+                if (it.isSuccessful) {
+                    onSuccess(pushedPost.key!!)
+                } else {
+                    activity.showToast(it.exception!!.message!!)
+                }
+            }
+        }
+    }
+    fun guestAddedGroup(key: String, group: String) {
+        database.child("guest/$key/group").setValue(group)
+            .addOnCompleteListener {
+                if (it.isSuccessful) {
+                    activity.showToast("Сохранено")
+                } else {
+                    activity.showToast(it.exception!!.message!!)
+                }
+            }
+    }
+
+
     //Время подключения к сети
     fun openApp() {
         val s5r = ServerValue.TIMESTAMP
@@ -32,18 +65,6 @@ class FireBaseHelper (private val activity: Activity) {
             .setValue(ServerValue.TIMESTAMP)
             .addOnCompleteListener {
                 if (!it.isSuccessful) {
-                    activity.showToast(it.exception!!.message!!)
-                }
-            }
-    }
-
-    //фото профиля
-    fun updateUserPhoto(photoUrl: String, onSuccess: () -> Unit) {
-        database.child("users/${auth.currentUser!!.uid}/photo").setValue(photoUrl)
-            .addOnCompleteListener {
-                if (it.isSuccessful) {
-                    onSuccess()
-                } else {
                     activity.showToast(it.exception!!.message!!)
                 }
             }
@@ -201,6 +222,8 @@ class FireBaseHelper (private val activity: Activity) {
                 }
             }
     }
+
+    val isLogged = auth.currentUser != null
 
     fun currentUserReference(): DatabaseReference =
         database.child("users").child(auth.currentUser!!.uid)
