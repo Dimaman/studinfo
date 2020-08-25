@@ -58,7 +58,7 @@ class EditInfoActivity : AppCompatActivity(), PasswordDialog.Listener {
         icon_out.setOnClickListener {
             mFirebaseHelper.auth.signOut()
             goOut()
-            startActivity(Intent(this, LoginActivity::class.java))
+            startActivity(Intent(this, TimetableActivity::class.java))
             finish()
         }
 

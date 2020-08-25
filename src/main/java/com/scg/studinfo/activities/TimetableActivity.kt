@@ -252,7 +252,7 @@ class TimetableFragment : Fragment() {
                                         listRus[pos]
                                     )
                                 )
-                                if (itemnch.isNotEmpty()) timetableCh.add(
+                                if (itemch.isNotEmpty()) timetableCh.add(
                                     TimetableWeek(
                                         itemch,
                                         listRus[pos]

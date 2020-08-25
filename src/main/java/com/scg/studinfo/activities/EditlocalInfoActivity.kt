@@ -44,6 +44,9 @@ class EditlocalInfoActivity : AppCompatActivity() {
         ch_box_days.setOnClickListener {interSel(ch_box_days, 5) }
 
         icon_check.setOnClickListener {
+            val editor = prefPers.edit()
+            editor.putString(personGroup, group_input.text.toString())
+            editor.apply()
             mFirebase.guestAddedGroup(prefPers.getString(personKey, "test")!!, group_input.text.toString())
             finish()
         }
