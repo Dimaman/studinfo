@@ -36,7 +36,7 @@ fun Context.showToast(text: String, duration: Int = Toast.LENGTH_SHORT) {
 }
 
 
-const val stringVersion = "1.1.2    "
+const val stringVersion = "1.1.5"
 
 //Сохраненные данные
 val PERSON_INFO = "PERSON_INFO"

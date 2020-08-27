@@ -75,27 +75,7 @@
                 app:layout_constraintTop_toTopOf="@id/unity_image" />
 
 
-            <ImageView
-                android:id="@+id/ic_people"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:layout_marginTop="10dp"
-                android:src="@drawable/ic_people"
-                app:layout_constraintStart_toStartOf="@id/title_unity"
-                app:layout_constraintTop_toBottomOf="@id/title_unity" />
-
-            <TextView
-                android:id="@+id/num_people"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="10"
-                android:textColor="@color/colorBigText"
-                android:textSize="17sp"
-                app:layout_constraintBottom_toBottomOf="@id/ic_people"
-                app:layout_constraintStart_toEndOf="@id/ic_people"
-                app:layout_constraintTop_toTopOf="@id/ic_people" />
-
-            <View
+       <View
                 android:id="@+id/edit_unity_btn"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -135,10 +115,6 @@
             android:layout_height="wrap_content"
             android:text="Новости" />
 
-        <com.google.android.material.tabs.TabItem
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Мероприятия" />
     </com.google.android.material.tabs.TabLayout>
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/viewpager"

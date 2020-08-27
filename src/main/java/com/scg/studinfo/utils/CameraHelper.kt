@@ -20,11 +20,18 @@ class CameraHelper(private val activity: Activity) {
     )
 
     fun takePicture() {
-
         val intent = Intent(Intent.ACTION_PICK)
         intent.type = "image/*"
         if (intent.resolveActivity(activity.packageManager) != null) {
             activity.startActivityForResult(intent, REQUEST_CODE);
+        }
+    }
+
+    fun takePicture(ind: Int) {
+        val intent = Intent(Intent.ACTION_PICK)
+        intent.type = "image/*"
+        if (intent.resolveActivity(activity.packageManager) != null) {
+            activity.startActivityForResult(intent, ind);
         }
     }
 

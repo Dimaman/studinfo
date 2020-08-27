@@ -43,7 +43,7 @@ class RegisterActivity : AppCompatActivity(), EmailFragment.Listener, PassFragme
                             .addToBackStack(null)
                             .commit()
                     } else {
-                        showToast("Этот Email уже зарегестрирован")
+                        showToast("Этот Email уже зарегистрирован")
                     }
                 } else {
                     showToast("Произошло что-то страшное, повторите позже")

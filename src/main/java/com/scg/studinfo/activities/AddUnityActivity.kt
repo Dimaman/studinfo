@@ -15,7 +15,10 @@ class AddUnityActivity : AppCompatActivity() {
 
     private lateinit var mFirebase: FireBaseHelper
     private lateinit var mCamera: CameraHelper
-    private lateinit var mUri: Uri
+    private lateinit var mUriImg: Uri
+    private lateinit var mUriLogo: Uri
+    private val CODE_LOGO = 12
+    private val CODE_IMG = 13
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,9 +29,10 @@ class AddUnityActivity : AppCompatActivity() {
         mCamera = CameraHelper(this)
 
         icon_exit.setOnClickListener { finish() }
-        unity_image.setOnClickListener { mCamera.takePicture() }
+        unity_image.setOnClickListener { mCamera.takePicture(CODE_LOGO) }
         icon_done.setOnClickListener { addUnity() }
 
+        bg_img_unity.setOnClickListener { mCamera.takePicture(CODE_IMG) }
 
         persons_btn.setOnClickListener {
             startActivity(Intent(this,
@@ -38,10 +42,18 @@ class AddUnityActivity : AppCompatActivity() {
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (requestCode == mCamera.REQUEST_CODE) {
+        if (requestCode == CODE_LOGO) {
             if (resultCode == RESULT_OK) {
-                mUri = data!!.data!!
-                GlideApp.with(this).load(mUri).centerCrop().into(unity_image)
+                mUriLogo = data!!.data!!
+                GlideApp.with(this).load(mUriLogo).centerCrop().into(unity_image)
+            } else {
+                finish()
+            }
+        }
+        if (requestCode == CODE_IMG) {
+            if (resultCode == RESULT_OK) {
+                mUriImg = data!!.data!!
+                GlideApp.with(this).load(mUriImg).centerCrop().into(bg_img_unity)
             } else {
                 finish()
             }
@@ -55,13 +67,18 @@ class AddUnityActivity : AppCompatActivity() {
     fun addUnity() {
         icon_done.isEnabled = false
         val uid = mFirebase.chUid()
-        mFirebase.uploadPostPhoto("unity/images/${mUri.lastPathSegment}", mUri) {
-            mFirebase.getUrl("unity/images/${mUri.lastPathSegment}") {
-                val url = it.toString()
-                mFirebase.addUnity(setUnity(url)) {
-                    uploadUnityToUser {
-                        finish()
-                        showToast("Объединение было создано")
+        mFirebase.uploadPostPhoto("unity/images/${mUriLogo.lastPathSegment}", mUriLogo) {
+            mFirebase.uploadPostPhoto("unity/images/${mUriImg.lastPathSegment}", mUriLogo) {
+                mFirebase.getUrl("unity/images/${mUriLogo.lastPathSegment}") {logoUrl ->
+                    mFirebase.getUrl("unity/images/${mUriImg.lastPathSegment}") {imgUrl ->
+                        val urlimg = imgUrl.toString()
+                        val urlLogo = logoUrl.toString()
+                        mFirebase.addUnity(setUnity(urlLogo, urlimg)) {
+                            uploadUnityToUser {
+                                finish()
+                                showToast("Объединение было создано")
+                            }
+                        }
                     }
                 }
             }
@@ -99,14 +116,15 @@ class AddUnityActivity : AppCompatActivity() {
         }
     }
 
-    fun setUnity(url: String): Unity {
+    fun setUnity(urlLogo: String, urlImg: String): Unity {
         return Unity(
             text_name.text.toString(),
             text_fullname.text.toString(),
             text_text.text.toString(),
             usersAtUnity,
             text_vk.text.toString(),
-            url
+            urlLogo,
+            urlImg
         )
     }
 }

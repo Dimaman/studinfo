@@ -66,11 +66,23 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
 
+            <ImageView
+                android:id="@+id/bg_img_unity"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:srcCompat="@drawable/nature_004"
+                app:layout_constraintTop_toBottomOf="@id/unity_image"
+
+                />
+
             <TextView
                 android:id="@+id/label_name"
                 style="@style/view_text"
                 android:text="Короткое название"
-                app:layout_constraintTop_toBottomOf="@id/unity_image"
+                app:layout_constraintTop_toBottomOf="@id/bg_img_unity"
                 app:layout_constraintStart_toStartOf="parent"/>
 
             <EditText
@@ -144,7 +156,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:text="Участники: 0"/>
-
 
 
 

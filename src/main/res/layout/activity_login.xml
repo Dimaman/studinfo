@@ -60,6 +60,18 @@
         android:text="Зарегистрироваться"
         tools:ignore="MissingConstraints" />
 
+    <TextView
+        android:id="@+id/reset_pass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="20dp"
+        app:layout_constraintTop_toBottomOf="@id/registration_btn"
+        android:textColor="@color/grey"
+        android:text="забыл пароль"
+        />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </com.scg.studinfo.views.KeyboardAwareScrollView>

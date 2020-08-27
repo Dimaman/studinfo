@@ -18,6 +18,7 @@ class ProfileActivity : BaseActivity(2) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
+        setContentView(R.layout.activity_profile)
         setupBottomNavigation()
 
         sel_unity_btn.setOnClickListener { goUnityList() }
@@ -62,7 +63,7 @@ class ProfileActivity : BaseActivity(2) {
         }
     }
     private fun goUnityList() {
-        startActivity(Intent(this, TestActivity::class.java))
+        startActivity(Intent(this, ListUnityActivity::class.java))
     }
 
     private fun goAddActivity() {

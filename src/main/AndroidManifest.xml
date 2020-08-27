@@ -18,7 +18,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activities.EditlocalInfoActivity"></activity>
+        <activity android:name=".activities.ResetPassActivity"></activity>
+        <activity android:name=".activities.EditlocalInfoActivity" />
         <activity android:name=".activities.AddLocalInfoActivity" />
         <activity android:name=".activities.TestActivity" />
         <activity

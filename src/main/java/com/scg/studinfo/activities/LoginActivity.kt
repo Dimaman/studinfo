@@ -5,7 +5,6 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
-import com.google.firebase.auth.FirebaseAuth
 import com.scg.studinfo.R
 import com.scg.studinfo.models.User
 import com.scg.studinfo.utils.FireBaseHelper
@@ -27,6 +26,10 @@ class LoginActivity : AppCompatActivity() {
         coordinateBtnAndInputs(login_btn, email_input, password_input)
         registration_btn.setOnClickListener{
             startActivity(Intent(this, RegisterActivity::class.java))
+        }
+
+        reset_pass.setOnClickListener {
+            startActivity(Intent(this, ResetPassActivity::class.java))
         }
 
         view_pass.setOnClickListener {

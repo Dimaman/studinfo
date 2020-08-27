@@ -1382,6 +1382,7 @@ id async
 id auto
 id barrier
 id beginning
+id bg_img_unity
 id blocking
 id bottom
 id bottom_navigation_view
@@ -1495,7 +1496,6 @@ id holiday_text
 id holiday_view
 id home
 id homeAsUp
-id ic_people
 id icon
 id icon_add_new
 id icon_add_post
@@ -1563,7 +1563,6 @@ id normal
 id notification_background
 id notification_main_column
 id notification_main_column_container
-id num_people
 id off
 id on
 id onTouch
@@ -1590,6 +1589,7 @@ id reg_btn
 id registration_btn
 id res_news
 id res_timetable_id
+id reset_pass
 id right
 id right_icon
 id right_side
@@ -1794,6 +1794,7 @@ layout activity_login
 layout activity_profile
 layout activity_profile_test
 layout activity_register
+layout activity_reset_pass
 layout activity_stud_unity
 layout activity_test
 layout activity_timetable

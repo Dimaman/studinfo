@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
@@ -60,12 +61,10 @@ class StudUnityActivity : AppCompatActivity() {
                 })
         }
 
+        vk_btn.visibility = View.INVISIBLE
+
         unity_image.loadUserPhoto(selUnity!!.img)
         title_unity.text = selUnity!!.name
-        if (selUnity?.users != null) {
-            num_people.text = selUnity!!.users!!.size.toString()
-        }
-        else num_people.text = "0"
         val viewPager: ViewPager = findViewById(R.id.viewpager)
         viewPager.adapter = SampleFragmentPagerAdapter(selUnity!!.text!!, supportFragmentManager,
             this)
