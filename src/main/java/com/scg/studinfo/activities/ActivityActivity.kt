@@ -38,7 +38,6 @@ class ActivityActivity : BaseActivity(0) {
         icon_add_new.visibility = View.INVISIBLE
 
         mFirebase = FireBaseHelper(this)
-        //val mUid = mFirebase.auth.currentUser!!.uid
         if(mFirebase.auth.currentUser != null) {
             mFirebase.currentUserReference()
                 .addListenerForSingleValueEvent(ValueEventListenerAdapter {
@@ -84,9 +83,11 @@ class ActivityActivity : BaseActivity(0) {
                 sortPosts.sortByDescending { it.startTime }
                 val lastListPosts = mutableListOf(FeedPost())
                 lastListPosts.clear()
-                lastListPosts.add(FeedPost(uidNews = "split", uid = "Актуальное"))
+                if(sortPosts.isNotEmpty())
+                    lastListPosts.add(FeedPost(uidNews = "split", uid = "Актуальное"))
                 lastListPosts.addAll(sortPosts)
-                lastListPosts.add(FeedPost(uidNews = "split", uid = "Нектуальное"))
+                if(sortOldPosts.isNotEmpty())
+                    lastListPosts.add(FeedPost(uidNews = "split", uid = "Нектуальное"))
                 lastListPosts.addAll(sortOldPosts)
                 mFirebase.uploadUnity {
 

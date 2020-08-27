@@ -22,7 +22,6 @@ class EditInfoActivity : AppCompatActivity(), PasswordDialog.Listener {
     private lateinit var mUser: User
     private lateinit var mPendingEmail: User
     private lateinit var mFirebaseHelper: FireBaseHelper
-    private lateinit var cameraHelper: CameraHelper
 
     private lateinit var pref: SharedPreferences
     private lateinit var prefPers: SharedPreferences
@@ -35,7 +34,6 @@ class EditInfoActivity : AppCompatActivity(), PasswordDialog.Listener {
 
         mFirebaseHelper = FireBaseHelper(this)
 
-        cameraHelper = CameraHelper(this)
 
         icon_check.isEnabled = false
         name_input.isEnabled = false

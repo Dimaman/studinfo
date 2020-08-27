@@ -1567,6 +1567,7 @@ id num_people
 id off
 id on
 id onTouch
+id on_develop_text
 id outline
 id oval
 id packed

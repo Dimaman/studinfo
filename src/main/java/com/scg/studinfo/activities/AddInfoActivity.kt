@@ -40,6 +40,15 @@ class AddInfoActivity : AppCompatActivity() {
         prefPers = getSharedPreferences(PERSON_INFO, MODE_PRIVATE)
         pref = getSharedPreferences(APP_PREFERENCES, MODE_PRIVATE)
 
+        group_input.setText(prefPers.getString(personGroup, null))
+
+        val savedInt = getSaveSetting(this)
+        ch_box_razv.isSelected = savedInt[0]
+        ch_box_nauka.isSelected = savedInt[1]
+        ch_box_sport.isSelected = savedInt[2]
+        ch_box_tvor.isSelected = savedInt[3]
+        ch_box_work.isSelected = savedInt[4]
+        ch_box_days.isSelected = savedInt[5]
 
         ch_box_razv.setOnClickListener { interSel(ch_box_razv, 0) }
         ch_box_nauka.setOnClickListener {interSel(ch_box_nauka, 1) }
@@ -52,7 +61,6 @@ class AddInfoActivity : AppCompatActivity() {
 
         mDatabase.child("users").child(mAuth.currentUser!!.uid)
             .addListenerForSingleValueEvent(ValueEventListenerAdapter {
-                name_input.setText("TEST", TextView.BufferType.EDITABLE)
                 val cache_user = it.getValue(User::class.java)
                 mEmail = cache_user!!.email
                 icon_check.isEnabled = true

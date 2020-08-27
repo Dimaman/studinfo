@@ -64,12 +64,12 @@
         "source": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\src\\main\\res\\drawable-anydpi\\ic_activity_click.xml"
     },
     {
-        "merged": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi_ic_calendar_click.xml.flat",
-        "source": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\src\\main\\res\\drawable-anydpi\\ic_calendar_click.xml"
-    },
-    {
         "merged": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_ic_more_click.png.flat",
         "source": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\src\\main\\res\\drawable-xhdpi\\ic_more_click.png"
+    },
+    {
+        "merged": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi_ic_calendar_click.xml.flat",
+        "source": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\src\\main\\res\\drawable-anydpi\\ic_calendar_click.xml"
     },
     {
         "merged": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_timetable.xml.flat",
@@ -124,12 +124,12 @@
         "source": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\src\\main\\res\\drawable-xhdpi\\ic_eye.png"
     },
     {
-        "merged": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi_ic_setting_click.xml.flat",
-        "source": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\src\\main\\res\\drawable-anydpi\\ic_setting_click.xml"
-    },
-    {
         "merged": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_login_selector.xml.flat",
         "source": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\src\\main\\res\\drawable\\ic_login_selector.xml"
+    },
+    {
+        "merged": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi_ic_setting_click.xml.flat",
+        "source": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\src\\main\\res\\drawable-anydpi\\ic_setting_click.xml"
     },
     {
         "merged": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\build\\intermediates\\res\\merged\\debug\\drawable_ic_launcher_background.xml.flat",
@@ -140,12 +140,12 @@
         "source": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\src\\main\\res\\drawable-anydpi\\ic_login_click.xml"
     },
     {
-        "merged": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\build\\intermediates\\res\\merged\\debug\\drawable_grad_shape.xml.flat",
-        "source": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\src\\main\\res\\drawable\\grad_shape.xml"
-    },
-    {
         "merged": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\build\\intermediates\\res\\merged\\debug\\drawable-hdpi_ic_calendar.png.flat",
         "source": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\src\\main\\res\\drawable-hdpi\\ic_calendar.png"
+    },
+    {
+        "merged": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\build\\intermediates\\res\\merged\\debug\\drawable_grad_shape.xml.flat",
+        "source": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\src\\main\\res\\drawable\\grad_shape.xml"
     },
     {
         "merged": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xxhdpi_ic_login.png.flat",
@@ -172,12 +172,12 @@
         "source": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\src\\main\\res\\drawable-mdpi\\ic_more_click.png"
     },
     {
-        "merged": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\build\\intermediates\\res\\merged\\debug\\drawable_inter_selector.xml.flat",
-        "source": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\src\\main\\res\\drawable\\inter_selector.xml"
-    },
-    {
         "merged": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\build\\intermediates\\res\\merged\\debug\\drawable-anydpi_ic_timetable_click.xml.flat",
         "source": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\src\\main\\res\\drawable-anydpi\\ic_timetable_click.xml"
+    },
+    {
+        "merged": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\build\\intermediates\\res\\merged\\debug\\drawable_inter_selector.xml.flat",
+        "source": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\src\\main\\res\\drawable\\inter_selector.xml"
     },
     {
         "merged": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_add_info.xml.flat",

@@ -1,20 +1,28 @@
 package com.scg.studinfo.activities
 
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
 import com.google.firebase.auth.FirebaseAuth
 import com.scg.studinfo.R
+import com.scg.studinfo.models.User
+import com.scg.studinfo.utils.FireBaseHelper
 import kotlinx.android.synthetic.main.activity_login.*
 
 class LoginActivity : AppCompatActivity() {
-    private lateinit var mAuth : FirebaseAuth
+    private lateinit var mFirebase : FireBaseHelper
 
+    private lateinit var prefPers: SharedPreferences
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
+        prefPers = getSharedPreferences(PERSON_INFO, MODE_PRIVATE)
+
+        mFirebase = FireBaseHelper(this)
 
         coordinateBtnAndInputs(login_btn, email_input, password_input)
         registration_btn.setOnClickListener{
@@ -33,10 +41,17 @@ class LoginActivity : AppCompatActivity() {
             val email = email_input.text.toString()
             val pass = password_input.text.toString()
             if(validateBtn(email_input.text.toString(), password_input.text.toString())) {
-                mAuth.signInWithEmailAndPassword(email, pass).addOnCompleteListener {
+                mFirebase.auth.signInWithEmailAndPassword(email, pass).addOnCompleteListener {
                     if(it.isSuccessful){
-                        startActivity(Intent(this, TimetableActivity::class.java))
-                        finish()
+                        mFirebase.currentUserReference().addListenerForSingleValueEvent(ValueEventListenerAdapter {
+                            val user = it.getValue(User::class.java)
+                            val editor = prefPers.edit()
+                            editor.putString(personGroup, user!!.group)
+                            editor.apply()
+                            startActivity(Intent(this, TimetableActivity::class.java))
+                            finish()
+                        })
+
                     }
                 }
             } else {
@@ -45,9 +60,5 @@ class LoginActivity : AppCompatActivity() {
                 registration_btn.isEnabled = true
             }
         }
-
-        mAuth = FirebaseAuth.getInstance()
     }
-
-
 }

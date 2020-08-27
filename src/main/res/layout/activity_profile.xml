@@ -112,6 +112,17 @@
         android:textColor="@color/colorBigText"
         android:textSize="20sp"/>
 
+    <TextView
+        android:id="@+id/on_develop_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="В разработке..."
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/grey"
+        android:textSize="20sp"/>
 
 
     <include layout="@layout/bot_nav_view"/>
