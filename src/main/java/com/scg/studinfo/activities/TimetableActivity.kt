@@ -212,18 +212,62 @@ class TimetableFragment : Fragment() {
         "saturday",
         "sunday"
     )
+    private lateinit var mFirebase: FireBaseHelper
+
+    fun chetNechet(time: Long, onSuccess: (str: String) -> Unit) {
+        mFirebase.optionsBool("chet") {
+            val calendar = Calendar.getInstance()
+            calendar.timeInMillis = time
+            val numWeek = calendar.get(Calendar.WEEK_OF_YEAR)
+            val weekText = if (it) {
+                if (numWeek % 2 == 1)  "чет" else "нечет"
+            } else {
+                if (numWeek % 2 == 1)  "нечет" else "чет"
+            }
+            onSuccess(weekText)
+        }
+    }
+
+    fun weekDayRus(): String {
+        val firstPart = when (getDatetime().get(Calendar.DAY_OF_WEEK)) {
+            2 -> "понедельник"
+            3 -> "вторник"
+            4 -> "среда"
+            5 -> "четверг"
+            6 -> "пятница"
+            7 -> "суббота"
+            else -> "воскресенье"
+        }
+        val secondPart = getDatetime().get(Calendar.DAY_OF_MONTH)
+        val thirdPart = when (getDatetime().get(Calendar.MONTH)) {
+            0 -> "января"
+            1 -> "февраля"
+            2 -> "марта"
+            3 -> "апреля"
+            4 -> "мая"
+            5 -> "июня"
+            6 -> "июля"
+            7 -> "августа"
+            8 -> "сентября"
+            9 -> "октября"
+            10 -> "ноября"
+            else -> "декабря"
+        }
+        return "Сегодня $firstPart, $secondPart $thirdPart"
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        val TAG = "fragmetn"
         val timetableCh = mutableListOf<TimetableWeek>()
         val timetableNech = mutableListOf<TimetableWeek>()
         val view: View
         val pref = activity!!
             .getSharedPreferences(PERSON_INFO, AppCompatActivity.MODE_PRIVATE)
-        val mFirebase = FireBaseHelper(activity!!)
+        mFirebase = FireBaseHelper(activity!!)
+
+
 
         if (mPage == 1) {
             view = inflater.inflate(R.layout.fragment_timetable_now, container, false)
@@ -235,65 +279,66 @@ class TimetableFragment : Fragment() {
         }
             mFirebase.database.child("timetable/${pref.getString(personGroup, "")}")
                 .addListenerForSingleValueEvent(ValueEventListenerAdapter {
-                    for (pos in 0..5) {
-                        val itemnch = it.child("нечет/" + listts[pos]).children.map {
+                    chetNechet(System.currentTimeMillis()) { chet ->
+                        for (pos in 0..5) {
+                            val itemnch = it.child("нечет/" + listts[pos]).children.map {
+                                it.getValue(TimetableItem::class.java)!!
+                                    .copy(para = it.key)
+                            }.sortedBy { it.para }
+                            val itemch = it.child("чет/" + listts[pos]).children.map {
+                                it.getValue(TimetableItem::class.java)!!
+                                    .copy(para = it.key)
+                            }.sortedBy { it.para }
+                            if (itemnch.isNotEmpty()) timetableNech.add(
+                                TimetableWeek(
+                                    itemnch,
+                                    listRus[pos]
+                                )
+                            )
+                            if (itemch.isNotEmpty()) timetableCh.add(
+                                TimetableWeek(
+                                    itemch,
+                                    listRus[pos]
+                                )
+                            )
+                        }
+                        val timeDay =
+                            if (getDatetime().get(Calendar.DAY_OF_WEEK) == 1) 6 else getDatetime().get(
+                                Calendar.DAY_OF_WEEK
+                            ) - 2
+                        val itemNow = it.child(
+                            "$chet/${listts[timeDay]}"
+                        ).children.map {
                             it.getValue(TimetableItem::class.java)!!
                                 .copy(para = it.key)
-                        }.sortedBy { it.para }
-                        val itemch = it.child("чет/" + listts[pos]).children.map {
-                            it.getValue(TimetableItem::class.java)!!
-                                .copy(para = it.key)
-                        }.sortedBy { it.para }
-                        if (itemnch.isNotEmpty()) timetableNech.add(
-                            TimetableWeek(
-                                itemnch,
-                                listRus[pos]
-                            )
-                        )
-                        if (itemch.isNotEmpty()) timetableCh.add(
-                            TimetableWeek(
-                                itemch,
-                                listRus[pos]
-                            )
-                        )
-                    }
-                    val timeDay =
-                        if (getDatetime().get(Calendar.DAY_OF_WEEK) == 1) 6 else getDatetime().get(
-                            Calendar.DAY_OF_WEEK
-                        ) - 2
-                    val itemNow = it.child(
-                        "${
-                        chetNechet(System.currentTimeMillis())}/${listts[timeDay]}"
-                    ).children.map {
-                        it.getValue(TimetableItem::class.java)!!
-                            .copy(para = it.key)
-                    }.sortedBy {
-                        it.para
-                    }
-                    if (mPage == 1) {
-                        if (itemNow != null && itemNow.isNotEmpty()) {
-                            view.holiday_view.visibility = View.INVISIBLE
-                            view.holiday_text.visibility = View.INVISIBLE
-                            view.res_timetable_id.adapter = TimetableItemAdapter(itemNow)
-                            view.res_timetable_id.layoutManager =
+                        }.sortedBy {
+                            it.para
+                        }
+                        if (mPage == 1) {
+                            if (itemNow != null && itemNow.isNotEmpty()) {
+                                view.holiday_view.visibility = View.INVISIBLE
+                                view.holiday_text.visibility = View.INVISIBLE
+                                view.res_timetable_id.adapter = TimetableItemAdapter(itemNow)
+                                view.res_timetable_id.layoutManager =
+                                    LinearLayoutManager(inflater.context)
+                            } else view.holiday_text.text = "Выходной"
+                        } else if (mPage == 0) {
+                            view.week_recycler.adapter =
+                                TimetableAdapter(timetableNech, inflater.context)
+                            view.week_recycler.layoutManager =
                                 LinearLayoutManager(inflater.context)
-                        } else view.holiday_text.text = "Выходной"
-                    } else if (mPage == 0) {
-                        view.week_recycler.adapter =
-                            TimetableAdapter(timetableNech, inflater.context)
-                        view.week_recycler.layoutManager =
-                            LinearLayoutManager(inflater.context)
-                    } else {
-                        view.week_recycler.adapter =
-                            TimetableAdapter(timetableCh, inflater.context)
-                        view.week_recycler.layoutManager =
-                            LinearLayoutManager(inflater.context)
-                    }
-                    //select today day of week
-                    /*val timeOfWeek = calNow().get(Calendar.DAY_OF_WEEK) - 2
+                        } else {
+                            view.week_recycler.adapter =
+                                TimetableAdapter(timetableCh, inflater.context)
+                            view.week_recycler.layoutManager =
+                                LinearLayoutManager(inflater.context)
+                        }
+                        //select today day of week
+                        /*val timeOfWeek = calNow().get(Calendar.DAY_OF_WEEK) - 2
                             if(timeOfWeek < view.week_recycler.adapter!!.itemCount) {
                                 view.week_recycler.smoothScrollToPosition(timeOfWeek)
                             }*/
+                    }
                 })
         return view
     }

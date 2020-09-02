@@ -9,6 +9,7 @@ import android.graphics.ColorMatrix
 import android.graphics.ColorMatrixColorFilter
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -23,6 +24,7 @@ import com.scg.studinfo.utils.FireBaseHelper
 import kotlinx.android.synthetic.main.activity_activity.*
 import kotlinx.android.synthetic.main.feed_item.view.*
 import kotlinx.android.synthetic.main.feed_split_item.view.*
+import java.util.*
 
 
 class ActivityActivity : BaseActivity(0) {
@@ -42,11 +44,18 @@ class ActivityActivity : BaseActivity(0) {
             mFirebase.currentUserReference()
                 .addListenerForSingleValueEvent(ValueEventListenerAdapter {
                     val user = it.getValue(User::class.java)!!.copy(uid = it.key)
-                    if (user.roles == "admin" || user.roles == "moder") {
-                        icon_add_new.visibility = View.VISIBLE
+                    mFirebase.checkRole {
+                        if (it == "admin" || it == "moder") {
+                            icon_add_new.visibility = View.VISIBLE
+                        }
                     }
                 })
         }
+
+        val cal = Calendar.getInstance()
+        cal.timeInMillis = System.currentTimeMillis()
+
+        Log.v("WWWW", "${System.currentTimeMillis()}")
 
         mFirebase.database.child("feed-posts")
             .addValueEventListener(ValueEventListenerAdapter {
@@ -163,7 +172,9 @@ class FeedAdapter (private val posts: List<FeedPost>,
                 firebase.currentUserReference()
                     .addListenerForSingleValueEvent(ValueEventListenerAdapter {
                         val user = it.getValue(User::class.java)!!.copy(uid = it.key)
-                        holder.view.icon_edit_post.isEnabled = user.roles == "admin"
+                        firebase.checkRole {
+                            holder.view.icon_edit_post.isEnabled = it == "admin"
+                        }
                     })
             } else {
                 holder.view.icon_edit_post.isEnabled = false

@@ -43,11 +43,13 @@ class ProfileActivity : BaseActivity(2) {
             mFireBase.currentUserReference()
                 .addListenerForSingleValueEvent(ValueEventListenerAdapter {
                     mUser = it.getValue(User::class.java)!!
-                    if (mUser.roles == "admin") {
-                        users_btn.visibility = View.VISIBLE
-                        users_btn_text.visibility = View.VISIBLE
-                        add_unity_btn.visibility = View.VISIBLE
-                        add_unity_btn_text.visibility = View.VISIBLE
+                    mFireBase.checkRole {
+                        if (it == "admin") {
+                            users_btn.visibility = View.VISIBLE
+                            users_btn_text.visibility = View.VISIBLE
+                            add_unity_btn.visibility = View.VISIBLE
+                            add_unity_btn_text.visibility = View.VISIBLE
+                        }
                     }
                 })
         }

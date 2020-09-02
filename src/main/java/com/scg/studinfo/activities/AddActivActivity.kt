@@ -164,7 +164,7 @@ class AddActivActivity() : AppCompatActivity(), CalendarDialog.ListenerCalendar 
         cache.add(ch_box_days.isSelected)
         val dateIs = cal_text.text.split('.')
         val dateCal = Calendar.getInstance()
-        dateCal.set(dateIs[2].toInt(), dateIs[1].toInt(), dateIs[0].toInt())
+        dateCal.set(dateIs[2].toInt(), dateIs[1].toInt() - 1, dateIs[0].toInt())
         return FeedPost(
             user = mFirebase.chUid(),
             uid = uid,

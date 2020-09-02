@@ -34,12 +34,18 @@ class StudUnityActivity : AppCompatActivity() {
         edit_unity_btn.visibility = View.INVISIBLE
         edit_unity_btn_text.visibility = View.INVISIBLE
 
+        mFirebase = FireBaseHelper(this)
 
         edit_unity_btn.setOnClickListener { editUnity() }
         edit_unity_btn_text.setOnClickListener { editUnity() }
+        vk_btn.visibility = View.INVISIBLE
 
-        if(selUnity?.vk == null || selUnity?.vk == "") vk_btn.visibility = View.INVISIBLE
-
+        mFirebase.optionsBool("unityvk") {
+            if (it) {
+                if (selUnity?.vk == null || selUnity?.vk == "") vk_btn.visibility = View.INVISIBLE
+                else vk_btn.visibility = View.VISIBLE
+            }
+        }
         vk_btn.setOnClickListener {
             val goVK = Intent(
                 Intent.ACTION_VIEW,
@@ -48,20 +54,21 @@ class StudUnityActivity : AppCompatActivity() {
             startActivity(goVK)
         }
 
-        mFirebase = FireBaseHelper(this)
 
         if(mFirebase.isLogged) {
             mFirebase.currentUserReference()
                 .addListenerForSingleValueEvent(ValueEventListenerAdapter {
                     val user = it.getValue(User::class.java)!!
-                    if (user.roles == "admin") {
-                        edit_unity_btn.visibility = View.VISIBLE
-                        edit_unity_btn_text.visibility = View.VISIBLE
+                    mFirebase.checkRole {
+                        if (it == "admin") {
+                            edit_unity_btn.visibility = View.VISIBLE
+                            edit_unity_btn_text.visibility = View.VISIBLE
+                        }
                     }
                 })
+
         }
 
-        vk_btn.visibility = View.INVISIBLE
 
         unity_image.loadUserPhoto(selUnity!!.img)
         title_unity.text = selUnity!!.name

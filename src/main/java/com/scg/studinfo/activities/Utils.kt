@@ -36,7 +36,7 @@ fun Context.showToast(text: String, duration: Int = Toast.LENGTH_SHORT) {
 }
 
 
-const val stringVersion = "1.1.5"
+const val stringVersion = "1.1.6"
 
 //Сохраненные данные
 val PERSON_INFO = "PERSON_INFO"
@@ -92,45 +92,6 @@ fun getDatetime(time: Long): Calendar {
     val calendar = Calendar.getInstance()
     calendar.timeInMillis = time
     return calendar
-}
-
-fun chetNechet(time: Long): String {
-    val calendar = Calendar.getInstance()
-    calendar.timeInMillis = time
-    val numWeek = calendar.get(Calendar.WEEK_OF_YEAR)
-    var weekText = "нечет"
-    if(numWeek % 2 == 1) {
-        weekText = "чет"
-    }
-    return weekText
-}
-
-fun weekDayRus(): String {
-    val firstPart = when (getDatetime().get(Calendar.DAY_OF_WEEK)) {
-        2 -> "понедельник"
-        3 -> "вторник"
-        4 -> "среда"
-        5 -> "четверг"
-        6 -> "пятница"
-        7 -> "суббота"
-        else -> "воскресенье"
-    }
-    val secondPart = getDatetime().get(Calendar.DAY_OF_MONTH)
-    val thirdPart = when (getDatetime().get(Calendar.MONTH)) {
-        0 -> "января"
-        1 -> "февраля"
-        2 -> "марта"
-        3 -> "апреля"
-        4 -> "мая"
-        5 -> "июня"
-        6 -> "июля"
-        7 -> "августа"
-        8 -> "сентября"
-        9 -> "октября"
-        10 -> "ноября"
-        else -> "декабря"
-    }
-    return "Сегодня $firstPart, $secondPart $thirdPart"
 }
 
 fun weekDayRus(time: Long): String {

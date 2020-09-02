@@ -42,7 +42,9 @@ class UsersListAdapter(private val mFirebase: FireBaseHelper, private val itemsU
 ) : RecyclerView.Adapter<UsersListAdapter.ViewHolder>() {
     class ViewHolder(val view: View) : RecyclerView.ViewHolder(view)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): UsersListAdapter.ViewHolder {
+
+
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_user, parent, false)
@@ -53,7 +55,7 @@ class UsersListAdapter(private val mFirebase: FireBaseHelper, private val itemsU
 
 
 
-    override fun onBindViewHolder(holder: UsersListAdapter.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.view.nick_text.text = itemsU[position].name
         holder.view.group_text.text = itemsU[position].group
 
@@ -62,10 +64,12 @@ class UsersListAdapter(private val mFirebase: FireBaseHelper, private val itemsU
                 if (it.getValue() != null) {
                     val time = Date(it.getValue() as Long)
                     holder.view.time_open
-                        .text = """$time"""
+                        .text = "$time"
                 }
             })
-        holder.view.role_btn.text = itemsU[position].roles ?: "User"
+        mFirebase.checkRole(itemsU[position].uid!!) {
+            holder.view.role_btn.text = it ?: "User"
+        }
         holder.view.role_btn.setOnClickListener {
             showPop(itemsU[position].uid!!, holder.view.role_btn, holder)
 
@@ -73,7 +77,7 @@ class UsersListAdapter(private val mFirebase: FireBaseHelper, private val itemsU
 
     }
 
-    fun showPop(uid: String, btn: View, holder: UsersListAdapter.ViewHolder) {
+    fun showPop(uid: String, btn: View, holder: ViewHolder) {
         val popMenu = showPopup(context, btn, R.menu.roles_users)
         popMenu.setOnMenuItemClickListener {
             return@setOnMenuItemClickListener when (it.itemId) {
@@ -94,21 +98,11 @@ class UsersListAdapter(private val mFirebase: FireBaseHelper, private val itemsU
         }
     }
 
-    private fun edRoleUser(uid: String, role: String?, holder: UsersListAdapter.ViewHolder) {
-        val mFirebase = FireBaseHelper(activ)
+    private fun edRoleUser(uid: String, role: String?, holder: ViewHolder) {
         val cachePosts: MutableList<User> = mutableListOf(User())
         cachePosts.clear()
         cachePosts.addAll(itemsU)
-        val updatesMap = mutableMapOf<String, Any?>()
-        for (item in cachePosts) {
-            if(item.uid == uid)
-            {
-                item.roles = role
-            }
-            updatesMap["${item.uid}"] = item
-        }
-
-        mFirebase.updateInfo("users", updatesMap) {
+        mFirebase.database.child("private/users/$uid/role").setValue(role).addOnCompleteListener {
             activ.showToast("Изменено")
             holder.view.role_btn.text = role ?: "USER"
         }

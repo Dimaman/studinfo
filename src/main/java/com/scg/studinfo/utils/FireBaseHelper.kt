@@ -1,13 +1,17 @@
 package com.scg.studinfo.utils
 
 import android.app.Activity
+import android.content.Context
 import android.net.Uri
+import android.util.Log
+import android.widget.Toast
 import com.google.firebase.auth.AuthCredential
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ServerValue
+import com.google.firebase.database.ktx.getValue
 import com.google.firebase.storage.FirebaseStorage
 import com.google.firebase.storage.StorageReference
 import com.google.firebase.storage.UploadTask
@@ -83,6 +87,12 @@ class FireBaseHelper (private val activity: Activity) {
             }
     }
 
+    fun optionsBool(str: String, onSuccess: (bool: Boolean) -> Unit) {
+        database.child("options/$str").addListenerForSingleValueEvent(ValueEventListenerAdapter {
+            onSuccess(it.value as Boolean)
+        })
+    }
+
     //Загрузка списка объединений
     fun uploadUnity(onSuccess: (it: List<Unity>) -> Unit) {
         database.child("unity").addListenerForSingleValueEvent(
@@ -124,6 +134,18 @@ class FireBaseHelper (private val activity: Activity) {
                     activity.showToast(it.exception!!.message!!)
                 }
             }
+    }
+
+    fun checkRole(onSuccess: (str: String?) -> Unit) {
+        database.child("private/users/${auth.currentUser!!.uid}/role").addListenerForSingleValueEvent(ValueEventListenerAdapter {
+            onSuccess(it.value as String?)
+        })
+    }
+
+    fun checkRole(uid: String, onSuccess: (str: String?) -> Unit) {
+        database.child("private/users/$uid/role").addListenerForSingleValueEvent(ValueEventListenerAdapter {
+            onSuccess(it.value as String?)
+        })
     }
 
     //обновление информации о пользователе
