@@ -4,12 +4,12 @@ import android.app.Activity
 import android.app.ActivityOptions
 import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.graphics.Color
 import android.graphics.ColorMatrix
 import android.graphics.ColorMatrixColorFilter
 import android.graphics.drawable.GradientDrawable
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -24,11 +24,11 @@ import com.scg.studinfo.utils.FireBaseHelper
 import kotlinx.android.synthetic.main.activity_activity.*
 import kotlinx.android.synthetic.main.feed_item.view.*
 import kotlinx.android.synthetic.main.feed_split_item.view.*
-import java.util.*
 
 
 class ActivityActivity : BaseActivity(0) {
     private lateinit var mFirebase: FireBaseHelper
+    private lateinit var prefPers: SharedPreferences
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,7 +36,7 @@ class ActivityActivity : BaseActivity(0) {
         setContentView(R.layout.activity_activity)
         setupBottomNavigation()
 
-
+        prefPers = getSharedPreferences(PERSON_INFO, MODE_PRIVATE)
         icon_add_new.visibility = View.INVISIBLE
 
         mFirebase = FireBaseHelper(this)
@@ -52,17 +52,11 @@ class ActivityActivity : BaseActivity(0) {
                 })
         }
 
-        val cal = Calendar.getInstance()
-        cal.timeInMillis = System.currentTimeMillis()
-
-        Log.v("WWWW", "${System.currentTimeMillis()}")
-
         mFirebase.database.child("feed-posts")
             .addValueEventListener(ValueEventListenerAdapter {
                 val posts = it.children.map {
                     it.getValue(FeedPost::class.java)!!.copy(uidNews = it.key)
-                }
-                    .sortedByDescending { it.timestampDate() }
+                }.sortedByDescending { it.timestampDate() }
                 val sortPosts: MutableList<FeedPost> = mutableListOf(FeedPost())
                 val sortOldPosts: MutableList<FeedPost> = mutableListOf(FeedPost())
                 sortPosts.clear()
@@ -72,13 +66,16 @@ class ActivityActivity : BaseActivity(0) {
                         val cacheSave = getSaveSetting(this)
                         if (checkBtn(cacheSave.toList())) {
                             if (item.kategories != null) {
-                                if (checkBtn(cacheSave.toList(), item.kategories)) {
-                                    if (item.startTime != null) {
-                                        if (item.startTime > System.currentTimeMillis()) {
-                                            sortPosts.add(item)
+                                if (item.sortWord == null || (item.sortWord == "f${prefPers.getString(
+                                        personFac, null)}")) {
+                                    if (checkBtn(cacheSave.toList(), item.kategories)) {
+                                        if (item.startTime != null) {
+                                            if (item.startTime > System.currentTimeMillis()) {
+                                                sortPosts.add(item)
+                                            } else sortOldPosts.add(item)
                                         } else sortOldPosts.add(item)
-                                    } else sortOldPosts.add(item)
-                                }
+                                    }
+                            }
                             }
                         } else {
                             if (item.startTime != null) {

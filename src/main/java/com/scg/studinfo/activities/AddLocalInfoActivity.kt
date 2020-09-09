@@ -23,6 +23,12 @@ class AddLocalInfoActivity : AppCompatActivity() {
         prefPers = getSharedPreferences(PERSON_INFO, MODE_PRIVATE)
         pref = getSharedPreferences(APP_PREFERENCES, MODE_PRIVATE)
 
+        getSavedInter()
+
+        group_input.setText(prefPers.getString(personGroup, null))
+        fac_input.setText(prefPers.getString(personFac, null))
+        fac_input.setAdapter(ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, listFac))
+
         mFirebase = FireBaseHelper(this)
         mFirebase.database.child("timetable").addListenerForSingleValueEvent(ValueEventListenerAdapter {
             val groupList = it.children.map { it.key!! }
@@ -46,12 +52,22 @@ class AddLocalInfoActivity : AppCompatActivity() {
         editor.apply()
     }
 
+    fun getSavedInter() {
+        val cache = getSaveSetting(this)
+        ch_box_razv.isSelected = cache[0]
+        ch_box_nauka.isSelected = cache[1]
+        ch_box_sport.isSelected = cache[2]
+        ch_box_tvor.isSelected = cache[3]
+        ch_box_work.isSelected = cache[4]
+        ch_box_days.isSelected = cache[5]
+    }
+
     fun saveInfo() {
         if (validateBtn(group_input.text.toString())) {
            val editor = prefPers.edit()
-
             mFirebase.guestAdded(null) {
                 editor.putString(personKey, it)
+                editor.putString(personFac, fac_input.text.toString())
                 editor.putString(personGroup, group_input.text.toString())
                 editor.apply()
                 mFirebase.guestAddedGroup(it, group_input.text.toString())

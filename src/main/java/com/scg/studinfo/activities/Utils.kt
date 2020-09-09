@@ -36,13 +36,14 @@ fun Context.showToast(text: String, duration: Int = Toast.LENGTH_SHORT) {
 }
 
 
-const val stringVersion = "1.1.6"
+const val stringVersion = "1.1.8"
 
 //Сохраненные данные
 val PERSON_INFO = "PERSON_INFO"
 val APP_PREFERENCES = "mysettings"
 
 val personGroup = "person_group"
+val personFac = "person_fac"
 val personKey = "person_key"
 
 fun getStrSaveSetting(): MutableList<String> {
@@ -68,11 +69,17 @@ fun getSaveSetting(activity: Activity): MutableList<Boolean> {
     return cache
 }
 
-
 //загрузка новостей
 var itemNews: String? = null
 var imageNews: Bitmap? = null
-
+val listFac = arrayListOf(
+    "ИНГЭ",
+    "ИКСиИБ",
+    "ИППиП",
+    "ИЭУБ",
+    "ИСТИ",
+    "ИМА",
+    "ИТК")
 var selUnityActiv = 0
 var selUnity: Unity? = null
 
@@ -143,7 +150,7 @@ fun coordinateBtnAndInputs(btn: Button, vararg inputs : EditText) {
     btn.isEnabled = inputs.all { it.text.isNotEmpty() }
 }
 
-fun ImageView.loadUserPhoto(photoUrl: String?){
+fun ImageView.loadCircleImage(photoUrl: String?){
     if(!(context as Activity).isDestroyed)
         GlideApp.with(this).load(photoUrl).fallback(R.drawable.reg_icon).into(this)
 }

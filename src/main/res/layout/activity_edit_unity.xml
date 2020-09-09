@@ -66,11 +66,23 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
 
+            <ImageView
+                android:id="@+id/bg_img_unity"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:srcCompat="@drawable/nature_004"
+                app:layout_constraintTop_toBottomOf="@id/unity_image"
+
+                />
+
             <TextView
                 android:id="@+id/label_name"
                 style="@style/view_text"
                 android:text="Короткое название"
-                app:layout_constraintTop_toBottomOf="@id/unity_image"
+                app:layout_constraintTop_toBottomOf="@id/bg_img_unity"
                 app:layout_constraintStart_toStartOf="parent"/>
 
             <EditText
@@ -95,10 +107,53 @@
                 app:layout_constraintStart_toStartOf="parent"/>
 
             <TextView
+                android:id="@+id/label_vk"
+                style="@style/view_text"
+                android:text="Адрес сообщества"
+                app:layout_constraintTop_toBottomOf="@id/text_fullname"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <TextView
+                android:id="@+id/help_vk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18dp"
+                android:layout_marginStart="10dp"
+                android:textColor="@color/grey"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintEnd_toStartOf="@id/text_vk"
+                app:layout_constraintTop_toTopOf="@id/text_vk"
+                app:layout_constraintBottom_toBottomOf="@id/text_vk"
+                android:text="https://vk.me/"/>
+
+            <EditText
+                android:id="@+id/text_vk"
+                style="@style/info_input"
+                android:layout_width="0dp"
+                app:layout_constraintTop_toBottomOf="@id/label_vk"
+                app:layout_constraintStart_toEndOf="@id/help_vk"
+                android:paddingStart="1dp"
+                android:inputType="textShortMessage"
+                app:layout_constraintEnd_toEndOf="parent"/>
+
+            <TextView
+                android:id="@+id/label_sort"
+                style="@style/view_text"
+                android:text="Сортировочное слово"
+                app:layout_constraintTop_toBottomOf="@id/text_vk"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <EditText
+                android:id="@+id/text_sort"
+                style="@style/info_input"
+                app:layout_constraintTop_toBottomOf="@id/label_sort"
+                app:layout_constraintStart_toStartOf="parent"/>
+
+            <TextView
                 android:id="@+id/label_text"
                 style="@style/view_text"
                 android:text="Описание"
-                app:layout_constraintTop_toBottomOf="@id/text_fullname"
+                app:layout_constraintTop_toBottomOf="@id/text_sort"
                 app:layout_constraintStart_toStartOf="parent"/>
 
             <EditText
@@ -107,18 +162,10 @@
                 app:layout_constraintTop_toBottomOf="@id/label_text"
                 app:layout_constraintStart_toStartOf="parent"/>
 
-            <TextView
-                android:id="@+id/test"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintTop_toBottomOf="@id/text_text"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_marginStart="10dp"/>
-
             <Button
                 android:id="@+id/persons_btn"
                 style="@style/registr_btn"
-                app:layout_constraintTop_toBottomOf="@id/test"
+                app:layout_constraintTop_toBottomOf="@id/text_text"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 android:text="Участники: 0"/>

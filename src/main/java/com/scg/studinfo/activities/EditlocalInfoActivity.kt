@@ -27,6 +27,9 @@ class EditlocalInfoActivity : AppCompatActivity() {
 
         mFirebase = FireBaseHelper(this)
 
+        fac_input.setAdapter(ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, listFac))
+        fac_input.setText(prefPers.getString(personFac, null))
+
         mFirebase.database.child("timetable").addListenerForSingleValueEvent(ValueEventListenerAdapter {
             val groupList = it.children.map { it.key!! }
             group_input.setAdapter(ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, groupList))
@@ -46,6 +49,7 @@ class EditlocalInfoActivity : AppCompatActivity() {
         icon_check.setOnClickListener {
             val editor = prefPers.edit()
             editor.putString(personGroup, group_input.text.toString())
+            editor.putString(personFac, fac_input.text.toString())
             editor.apply()
             mFirebase.guestAddedGroup(prefPers.getString(personKey, "test")!!, group_input.text.toString())
             finish()

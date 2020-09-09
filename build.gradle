@@ -15,8 +15,8 @@ android {
         applicationId "com.scg.studinfo"
         minSdkVersion 24
         targetSdkVersion 29
-        versionCode 56
-        versionName "1.1.6"
+        versionCode 58
+        versionName "1.1.8"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -51,6 +51,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-core:17.5.0'
     implementation 'com.google.firebase:firebase-analytics:17.5.0'
     implementation 'com.google.firebase:firebase-auth:19.3.2'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.2.1'
+    implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.0.1'
     implementation 'com.google.firebase:firebase-storage:19.1.1'
     implementation 'com.google.firebase:firebase-database-ktx:19.3.1'
     // add SDKs for any other desired Firebase products

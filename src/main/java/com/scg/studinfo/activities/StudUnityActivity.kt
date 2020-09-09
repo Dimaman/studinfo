@@ -8,7 +8,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
@@ -70,7 +69,7 @@ class StudUnityActivity : AppCompatActivity() {
         }
 
 
-        unity_image.loadUserPhoto(selUnity!!.img)
+        unity_image.loadCircleImage(selUnity!!.img)
         title_unity.text = selUnity!!.name
         val viewPager: ViewPager = findViewById(R.id.viewpager)
         viewPager.adapter = SampleFragmentPagerAdapter(selUnity!!.text!!, supportFragmentManager,

@@ -62,13 +62,13 @@ class AddUnityActivity : AppCompatActivity() {
 
     override fun onResume() {
         super.onResume()
-        persons_btn.text = "Участники: " + usersAtUnity.size
+        persons_btn.text = "Участники: ${usersAtUnity.size}"
     }
     fun addUnity() {
         icon_done.isEnabled = false
         val uid = mFirebase.chUid()
         mFirebase.uploadPostPhoto("unity/images/${mUriLogo.lastPathSegment}", mUriLogo) {
-            mFirebase.uploadPostPhoto("unity/images/${mUriImg.lastPathSegment}", mUriLogo) {
+            mFirebase.uploadPostPhoto("unity/images/${mUriImg.lastPathSegment}", mUriImg) {
                 mFirebase.getUrl("unity/images/${mUriLogo.lastPathSegment}") {logoUrl ->
                     mFirebase.getUrl("unity/images/${mUriImg.lastPathSegment}") {imgUrl ->
                         val urlimg = imgUrl.toString()
@@ -118,13 +118,14 @@ class AddUnityActivity : AppCompatActivity() {
 
     fun setUnity(urlLogo: String, urlImg: String): Unity {
         return Unity(
-            text_name.text.toString(),
-            text_fullname.text.toString(),
-            text_text.text.toString(),
-            usersAtUnity,
-            text_vk.text.toString(),
-            urlLogo,
-            urlImg
+            shortname = text_name.text.toString(),
+            name = text_fullname.text.toString(),
+            text = text_text.text.toString(),
+            users = usersAtUnity,
+            vk = text_vk.text.toString(),
+            img = urlLogo,
+            imgmain = urlImg,
+            sortword = text_sort.text.toString()
         )
     }
 }

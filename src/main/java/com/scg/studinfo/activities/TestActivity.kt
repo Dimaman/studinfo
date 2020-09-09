@@ -48,7 +48,7 @@ class UnityCreativeListAdapter(private val lUnity: List<Unity>, private val cont
         image.clipToOutline = true
         title.text = lUnity[position].name
         text.text = lUnity[position].text
-        image.loadUserPhoto(lUnity[position].imgmain)
+        image.loadCircleImage(lUnity[position].imgmain)
 
 
         return headerRoot
@@ -62,7 +62,7 @@ class UnityCreativeListAdapter(private val lUnity: List<Unity>, private val cont
         // Bind the views
         val imageView = contentRoot.findViewById<ImageView>(R.id.up_image_unity)
 
-        imageView.loadUserPhoto(lUnity[position].img)
+        imageView.loadCircleImage(lUnity[position].img)
         return contentRoot
     }
 

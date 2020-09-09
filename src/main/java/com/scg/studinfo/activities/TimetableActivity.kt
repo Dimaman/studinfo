@@ -35,6 +35,10 @@ import kotlinx.android.synthetic.main.fragment_timetable.view.*
 import kotlinx.android.synthetic.main.fragment_timetable_now.view.*
 import kotlinx.android.synthetic.main.item_week.view.day_of_week_now
 import kotlinx.android.synthetic.main.item_week.view.res_timetable_id
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
 
 
 class TimetableActivity : BaseActivity(1) {
@@ -92,7 +96,7 @@ class TimetableActivity : BaseActivity(1) {
 
     private fun checkAuth () {
         if(!mFirebase.isLogged){
-            if(prefPers.getString(personGroup, null) == null) {
+            if(prefPers.getString(personFac, null) == null || prefPers.getString(personGroup, null) == null) {
                 startActivity(Intent(this, AddLocalInfoActivity::class.java))
                 finish()
             } else {
@@ -104,8 +108,13 @@ class TimetableActivity : BaseActivity(1) {
                 }
             }
         } else {
-            mFirebase.openApp()
-            checkVersion()
+            if (prefPers.getString(personFac, null) == null) {
+                startActivity(Intent(this, AddLocalInfoActivity::class.java))
+                finish()
+            } else {
+                mFirebase.openApp()
+                checkVersion()
+            }
         }
     }
 

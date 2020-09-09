@@ -137,7 +137,8 @@ class FireBaseHelper (private val activity: Activity) {
     }
 
     fun checkRole(onSuccess: (str: String?) -> Unit) {
-        database.child("private/users/${auth.currentUser!!.uid}/role").addListenerForSingleValueEvent(ValueEventListenerAdapter {
+        database.child("private/users/${auth.currentUser!!.uid}/role")
+            .addListenerForSingleValueEvent(ValueEventListenerAdapter {
             onSuccess(it.value as String?)
         })
     }

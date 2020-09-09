@@ -1,6 +1,5 @@
 package com.scg.studinfo.activities
 
-import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
@@ -10,12 +9,10 @@ import android.widget.TextView
 import com.scg.studinfo.R
 import androidx.appcompat.app.AppCompatActivity
 import com.google.firebase.auth.*
-import com.scg.studinfo.utils.CameraHelper
 import com.scg.studinfo.utils.FireBaseHelper
 import com.scg.studinfo.views.PasswordDialog
 import com.scg.studinfo.models.User
 import kotlinx.android.synthetic.main.activity_edit_info.*
-
 
 
 class EditInfoActivity : AppCompatActivity(), PasswordDialog.Listener {
@@ -60,6 +57,9 @@ class EditInfoActivity : AppCompatActivity(), PasswordDialog.Listener {
             finish()
         }
 
+        fac_input.setAdapter(ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, listFac))
+        fac_input.setText(prefPers.getString(personFac, null))
+
         //загрузка данных
         mFirebaseHelper.currentUserReference()
             .addListenerForSingleValueEvent(ValueEventListenerAdapter {
@@ -67,7 +67,6 @@ class EditInfoActivity : AppCompatActivity(), PasswordDialog.Listener {
                 name_input.setText(mUser.name, TextView.BufferType.EDITABLE)
                 group_input.setText(mUser.group, TextView.BufferType.EDITABLE)
                 email_input.setText(mUser.email, TextView.BufferType.EDITABLE)
-                unity_image.loadUserPhoto(mUser.photo)
                 name_input.isEnabled = true
                 group_input.isEnabled = true
                 email_input.isEnabled = true
@@ -79,7 +78,7 @@ class EditInfoActivity : AppCompatActivity(), PasswordDialog.Listener {
             groupList = it.children.map { it.key!! }
             group_input.setAdapter(ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, groupList))
         })
-
+        
         group_input.threshold = 3
 
         //клик на "применить"
@@ -142,6 +141,7 @@ class EditInfoActivity : AppCompatActivity(), PasswordDialog.Listener {
         mFirebaseHelper.updateUser(updatesMap) {
             val saveIs = prefPers.edit()
             saveIs.putString(personGroup, user.group)
+            saveIs.putString(personFac, fac_input.text.toString())
             saveIs.apply()
             showToast("Сохранено")
             finish()

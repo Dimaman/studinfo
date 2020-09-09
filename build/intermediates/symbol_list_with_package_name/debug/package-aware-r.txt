@@ -1472,6 +1472,8 @@ id enterAlwaysCollapsed
 id exitUntilCollapsed
 id expand_activities_button
 id expanded_menu
+id fac_input
+id fac_label
 id feed_recycler
 id fill
 id fill_horizontal
@@ -1527,6 +1529,7 @@ id item_text
 id item_touch_helper_previous_elevation
 id label_fullname
 id label_name
+id label_sort
 id label_text
 id label_vk
 id labeled
@@ -1653,7 +1656,6 @@ id tag_screen_reader_focusable
 id tag_transition_group
 id tag_unhandled_key_event_manager
 id tag_unhandled_key_listeners
-id test
 id text
 id text2
 id textSpacerNoButtons
@@ -1665,6 +1667,7 @@ id text_fullname
 id text_input_password_toggle
 id text_name
 id text_news
+id text_sort
 id text_switcher
 id text_teacher
 id text_text

@@ -24,12 +24,36 @@ class ListUnityActivity : AppCompatActivity(), UnityListAdapter.Listener {
 
         mFirebase = FireBaseHelper(this)
 
+        val prefPers = getSharedPreferences(PERSON_INFO, MODE_PRIVATE)
+
         icon_back.setOnClickListener { finish() }
 
         mFirebase.uploadUnity {
-                unity_resycle.adapter = UnityListAdapter(it, this)
+            var sorted = mutableListOf<Unity>()
+            sorted.clear()
+            for (item in it) {
+                if (item.sortword == null || (item.sortword == "f${prefPers.getString(
+                        personFac, null
+                    )}")) {
+                    sorted.add(item)
+                }
+            }
+            if(mFirebase.auth.currentUser != null) {
+                mFirebase.checkRole { role ->
+                    if (role != null) {
+                        if (role == "admin") {
+                            sorted = it as MutableList<Unity>
+                        }
+                    }
+                    sorted.sortBy { it.name }
+                    unity_resycle.adapter = UnityListAdapter(sorted, this)
+                    unity_resycle.layoutManager = LinearLayoutManager(this)
+                }
+            } else {
+                unity_resycle.adapter = UnityListAdapter(sorted, this)
                 unity_resycle.layoutManager = LinearLayoutManager(this)
             }
+        }
     }
 
 
@@ -69,7 +93,7 @@ class UnityListAdapter(private val unity: List<Unity>, private val context: Cont
     override fun getItemCount(): Int = unity.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.view.image_unity.loadUserPhoto(unity[position].img)
+        holder.view.image_unity.loadCircleImage(unity[position].img)
         holder.view.unity_text.text = unity[position].name
         holder.view.click.setOnClickListener {
             mListener.loadUnity(unity[position])

@@ -25,6 +25,7 @@ class AddActivActivity() : AppCompatActivity(), CalendarDialog.ListenerCalendar 
     private var dominColor = 0
     private var setUinty = ""
     private var kolvoUnity = 0
+    private var sortUnity: String? = null
 
 
 
@@ -96,8 +97,9 @@ class AddActivActivity() : AppCompatActivity(), CalendarDialog.ListenerCalendar 
                     .addListenerForSingleValueEvent(
                         ValueEventListenerAdapter {
                             val unity = mFirebase.getUnity(it)
+                            sortUnity = unity.sortword
                             unity_text.text = unity.name
-                            image_unity.loadUserPhoto(unity.img)
+                            image_unity.loadCircleImage(unity.img)
                             setUinty = unity.uid!!
                         })
             }
@@ -172,6 +174,7 @@ class AddActivActivity() : AppCompatActivity(), CalendarDialog.ListenerCalendar 
             image = url,
             startTime = dateCal.timeInMillis,
             text = text_active.text.toString(),
+            sortWord = sortUnity,
             img = img,
             kategories = cache.toList(),
             domColor = dominColor
