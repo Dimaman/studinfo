@@ -1373,6 +1373,8 @@ id add_unity_btn
 id add_unity_btn_text
 id adjust_height
 id adjust_width
+id adm_menu_btn
+id adm_menu_btn_text
 id alertTitle
 id all
 id always
@@ -1446,6 +1448,9 @@ id day_7
 id day_of_week_now
 id decor_content_parent
 id default_activity_button
+id del_news_label
+id del_news_text
+id del_news_view
 id delete_news
 id description_unity
 id design_bottom_sheet
@@ -1492,6 +1497,9 @@ id group_input
 id group_label
 id group_text
 id groups
+id guests_label
+id guests_text
+id guests_view
 id headerGuideline
 id help_vk
 id holiday_text
@@ -1559,6 +1567,9 @@ id nav_item_profile
 id nav_item_timetable
 id navigation_header_container
 id never
+id news_label
+id news_text
+id news_view
 id next_btn
 id nick_text
 id none
@@ -1643,6 +1654,8 @@ id src_in
 id src_over
 id standard
 id start
+id stats_btn
+id stats_btn_text
 id status_bar_latest_event_content
 id stretch
 id submenuarrow
@@ -1687,6 +1700,9 @@ id title_activ
 id title_news
 id title_template
 id title_unity
+id today_label
+id today_text
+id today_view
 id toolbar_bot
 id toolbar_up
 id top
@@ -1702,6 +1718,7 @@ id tt_ram
 id unchecked
 id uniform
 id unity_image
+id unity_label
 id unity_main_info
 id unity_resycle
 id unity_text
@@ -1712,7 +1729,10 @@ id up_image_unity
 id useLogo
 id users_btn
 id users_btn_text
+id users_label
 id users_resycle
+id users_text
+id users_view
 id view_offset_helper
 id view_pass
 id viewpager
@@ -1787,6 +1807,7 @@ layout activity_add_info
 layout activity_add_local_info
 layout activity_add_persons_at_unity
 layout activity_add_unity
+layout activity_admin
 layout activity_edit_info
 layout activity_edit_local_info
 layout activity_edit_unity
@@ -1798,6 +1819,7 @@ layout activity_profile
 layout activity_profile_test
 layout activity_register
 layout activity_reset_pass
+layout activity_stats_app
 layout activity_stud_unity
 layout activity_test
 layout activity_timetable

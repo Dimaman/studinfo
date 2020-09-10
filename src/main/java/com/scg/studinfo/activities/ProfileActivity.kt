@@ -18,23 +18,15 @@ class ProfileActivity : BaseActivity(2) {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_profile)
-        setContentView(R.layout.activity_profile)
         setupBottomNavigation()
 
         sel_unity_btn.setOnClickListener { goUnityList() }
-        sel_unity_btn_text.setOnClickListener { goUnityList() }
 
-        users_btn.setOnClickListener { goUsersList() }
-        users_btn_text.setOnClickListener { goUsersList() }
-
-        add_unity_btn.setOnClickListener { goAddActivity() }
-        add_unity_btn_text.setOnClickListener { goAddActivity() }
+        adm_menu_btn.setOnClickListener { goAdminActivity() }
 
         //кнопка пользователей
-        users_btn.visibility = View.INVISIBLE
-        users_btn_text.visibility = View.INVISIBLE
-        add_unity_btn.visibility = View.INVISIBLE
-        add_unity_btn_text.visibility = View.INVISIBLE
+        adm_menu_btn.visibility = View.INVISIBLE
+        adm_menu_btn_text.visibility = View.INVISIBLE
 
 
         mFireBase = FireBaseHelper(this)
@@ -45,10 +37,8 @@ class ProfileActivity : BaseActivity(2) {
                     mUser = it.getValue(User::class.java)!!
                     mFireBase.checkRole {
                         if (it == "admin") {
-                            users_btn.visibility = View.VISIBLE
-                            users_btn_text.visibility = View.VISIBLE
-                            add_unity_btn.visibility = View.VISIBLE
-                            add_unity_btn_text.visibility = View.VISIBLE
+                            adm_menu_btn.visibility = View.VISIBLE
+                            adm_menu_btn_text.visibility = View.VISIBLE
                         }
                     }
                 })
@@ -68,17 +58,13 @@ class ProfileActivity : BaseActivity(2) {
         startActivity(Intent(this, ListUnityActivity::class.java))
     }
 
-    private fun goAddActivity() {
-        startActivity(Intent(this, AddUnityActivity::class.java))
+    private fun goAdminActivity() {
+        startActivity(Intent(this, AdminActivity::class.java))
     }
-
 
     override fun onResume() {
         super.onResume()
     }
 
-    fun goUsersList() {
-        startActivity(Intent(this, UsersActivity::class.java))
-    }
 
 }

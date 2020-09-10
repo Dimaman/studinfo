@@ -9,6 +9,7 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar_up"
         style="@style/toolbar"
+        app:contentInsetStart="0dp"
         android:elevation="4dp"
         tools:ignore="MissingConstraints">
         <androidx.constraintlayout.widget.ConstraintLayout

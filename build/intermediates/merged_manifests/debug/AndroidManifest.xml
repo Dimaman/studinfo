@@ -32,6 +32,8 @@
         android:supportsRtl="true"
         android:testOnly="true"
         android:theme="@style/AppTheme" >
+        <activity android:name="com.scg.studinfo.activities.StatsAppActivity" />
+        <activity android:name="com.scg.studinfo.activities.AdminActivity" />
         <activity android:name="com.scg.studinfo.activities.ResetPassActivity" />
         <activity android:name="com.scg.studinfo.activities.EditlocalInfoActivity" />
         <activity android:name="com.scg.studinfo.activities.AddLocalInfoActivity" />

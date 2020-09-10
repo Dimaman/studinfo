@@ -488,6 +488,10 @@
         "source": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\src\\main\\res\\drawable-xhdpi\\ic_setting_click.png"
     },
     {
+        "merged": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_stats_app.xml.flat",
+        "source": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\src\\main\\res\\layout\\activity_stats_app.xml"
+    },
+    {
         "merged": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\build\\intermediates\\res\\merged\\debug\\mipmap-xxxhdpi_ic_launcher.png.flat",
         "source": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\src\\main\\res\\mipmap-xxxhdpi\\ic_launcher.png"
     },
@@ -806,6 +810,10 @@
     {
         "merged": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\build\\intermediates\\res\\merged\\debug\\drawable_login_btn_bg.xml.flat",
         "source": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\src\\main\\res\\drawable\\login_btn_bg.xml"
+    },
+    {
+        "merged": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\build\\intermediates\\res\\merged\\debug\\layout_activity_admin.xml.flat",
+        "source": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\src\\main\\res\\layout\\activity_admin.xml"
     },
     {
         "merged": "C:\\Users\\SCG\\AndroidStudioProjects\\studinfo\\app\\build\\intermediates\\res\\merged\\debug\\drawable-xhdpi_ic_close.png.flat",

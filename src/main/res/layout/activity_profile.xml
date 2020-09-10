@@ -73,7 +73,7 @@
         android:textSize="20sp"/>
 
     <View
-        android:id="@+id/add_unity_btn"
+        android:id="@+id/adm_menu_btn"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         app:layout_constraintTop_toBottomOf="@id/sel_unity_btn"
@@ -81,33 +81,13 @@
         />
 
     <TextView
-        android:id="@+id/add_unity_btn_text"
+        android:id="@+id/adm_menu_btn_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Добавить объединение"
-        app:layout_constraintTop_toTopOf="@id/add_unity_btn"
-        app:layout_constraintBottom_toBottomOf="@id/add_unity_btn"
-        app:layout_constraintStart_toStartOf="@id/add_unity_btn"
-        android:layout_marginStart="20dp"
-        android:textColor="@color/colorBigText"
-        android:textSize="20sp"/>
-
-    <View
-        android:id="@+id/users_btn"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        app:layout_constraintTop_toBottomOf="@id/add_unity_btn"
-        android:background="@drawable/item_menu_bg"
-        />
-
-    <TextView
-        android:id="@+id/users_btn_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Пользователи"
-        app:layout_constraintTop_toTopOf="@id/users_btn"
-        app:layout_constraintBottom_toBottomOf="@id/users_btn"
-        app:layout_constraintStart_toStartOf="@id/users_btn"
+        android:text="Меню администратора"
+        app:layout_constraintTop_toTopOf="@id/adm_menu_btn"
+        app:layout_constraintBottom_toBottomOf="@id/adm_menu_btn"
+        app:layout_constraintStart_toStartOf="@id/adm_menu_btn"
         android:layout_marginStart="20dp"
         android:textColor="@color/colorBigText"
         android:textSize="20sp"/>
