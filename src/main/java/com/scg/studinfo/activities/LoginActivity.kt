@@ -1,5 +1,6 @@
 package com.scg.studinfo.activities
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
@@ -39,14 +40,19 @@ class LoginActivity : AppCompatActivity() {
         }
 
         login_btn.setOnClickListener{
+            val progressDialog = ProgressDialog(this)
+            progressDialog.setMessage("Входим...")
+            progressDialog.setCancelable(false)
             login_btn.isEnabled = false
             registration_btn.isEnabled = false
             val email = email_input.text.toString()
             val pass = password_input.text.toString()
             if(validateBtn(email_input.text.toString(), password_input.text.toString())) {
+                progressDialog.show()
                 mFirebase.auth.signInWithEmailAndPassword(email, pass).addOnCompleteListener {
                     if(it.isSuccessful){
                         mFirebase.currentUserReference().addListenerForSingleValueEvent(ValueEventListenerAdapter {
+                            progressDialog.dismiss()
                             val user = it.getValue(User::class.java)
                             val editor = prefPers.edit()
                             editor.putString(personGroup, user!!.group)
@@ -55,6 +61,11 @@ class LoginActivity : AppCompatActivity() {
                             finish()
                         })
 
+                    } else {
+                        progressDialog.dismiss()
+                        showToast("Ошибка входа")
+                        login_btn.isEnabled = true
+                        registration_btn.isEnabled = true
                     }
                 }
             } else {

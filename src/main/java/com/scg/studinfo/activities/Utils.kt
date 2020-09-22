@@ -1,6 +1,7 @@
 package com.scg.studinfo.activities
 
 import android.app.Activity
+import android.app.ProgressDialog
 import android.content.Context
 import android.content.Context.MODE_PRIVATE
 import android.graphics.Bitmap
@@ -36,7 +37,7 @@ fun Context.showToast(text: String, duration: Int = Toast.LENGTH_SHORT) {
 }
 
 
-const val stringVersion = "1.1.8"
+const val stringVersion = "1.1.11"
 
 //Сохраненные данные
 val PERSON_INFO = "PERSON_INFO"
@@ -87,7 +88,11 @@ var selUnity: Unity? = null
 var usersAtUnity = mutableListOf<String>()
 
 
-
+fun goLoadDialog(context: Context){
+    val progressDialog = ProgressDialog(context)
+    progressDialog.setMessage("Входим...")
+    progressDialog.show()
+}
 
 
 fun getDatetime(): Calendar {

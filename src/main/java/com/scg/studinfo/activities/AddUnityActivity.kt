@@ -1,9 +1,11 @@
 package com.scg.studinfo.activities
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import com.google.firebase.database.ktx.getValue
 import com.scg.studinfo.R
 import com.scg.studinfo.models.Unity
@@ -36,7 +38,7 @@ class AddUnityActivity : AppCompatActivity() {
 
         persons_btn.setOnClickListener {
             startActivity(Intent(this,
-            AddPersonsAtUnityActivity::class.java))
+                AddPersonsAtUnityActivity::class.java))
         }
     }
 
@@ -64,9 +66,13 @@ class AddUnityActivity : AppCompatActivity() {
         super.onResume()
         persons_btn.text = "Участники: ${usersAtUnity.size}"
     }
-    fun addUnity() {
+    private fun addUnity() {
         icon_done.isEnabled = false
-        val uid = mFirebase.chUid()
+        val progressDialog = ProgressDialog(this)
+        progressDialog.setMessage("Сохраняем...")
+        progressDialog.setCancelable(false)
+        progressDialog.show()
+        Handler().postDelayed({progressDialog.dismiss()}, 10000)
         mFirebase.uploadPostPhoto("unity/images/${mUriLogo.lastPathSegment}", mUriLogo) {
             mFirebase.uploadPostPhoto("unity/images/${mUriImg.lastPathSegment}", mUriImg) {
                 mFirebase.getUrl("unity/images/${mUriLogo.lastPathSegment}") {logoUrl ->
@@ -75,6 +81,7 @@ class AddUnityActivity : AppCompatActivity() {
                         val urlLogo = logoUrl.toString()
                         mFirebase.addUnity(setUnity(urlLogo, urlimg)) {
                             uploadUnityToUser {
+                                progressDialog.dismiss()
                                 finish()
                                 showToast("Объединение было создано")
                             }
@@ -85,7 +92,7 @@ class AddUnityActivity : AppCompatActivity() {
         }
     }
 
-    fun uploadUnityToUser(onSuccess: () -> Unit) {
+    private fun uploadUnityToUser(onSuccess: () -> Unit) {
         mFirebase.uploadUnity {
             var uidU = ""
             for (item in it) {
@@ -116,7 +123,7 @@ class AddUnityActivity : AppCompatActivity() {
         }
     }
 
-    fun setUnity(urlLogo: String, urlImg: String): Unity {
+    private fun setUnity(urlLogo: String, urlImg: String): Unity {
         return Unity(
             shortname = text_name.text.toString(),
             name = text_fullname.text.toString(),
@@ -129,4 +136,3 @@ class AddUnityActivity : AppCompatActivity() {
         )
     }
 }
-

@@ -1,5 +1,6 @@
 package com.scg.studinfo.activities
 
+import android.app.ProgressDialog
 import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
@@ -17,7 +18,8 @@ class EditUnityActivity : AppCompatActivity() {
     private lateinit var mCamera: CameraHelper
     private lateinit var mUri: Uri
     private lateinit var mUriImg: Uri
-    private var newPicture = false
+    private var newImg = false
+    private var newImgBg = false
     private val CODE_LOGO = 12
     private val CODE_IMG = 13
 
@@ -34,6 +36,8 @@ class EditUnityActivity : AppCompatActivity() {
             text_name.setText(unity!!.shortname)
             text_fullname.setText(unity.name)
             text_text.setText(unity.text)
+            text_vk.setText(unity.vk)
+            text_sort.setText(unity.sortword)
             unity_image.loadCircleImage(unity.img)
             bg_img_unity.loadCircleImage(unity.imgmain)
             if(unity.users != null)
@@ -45,16 +49,20 @@ class EditUnityActivity : AppCompatActivity() {
         }
 
         icon_exit.setOnClickListener { finish() }
+
         unity_image.setOnClickListener {
-            newPicture = true
             mCamera.takePicture(CODE_LOGO)
         }
+        bg_img_unity.setOnClickListener {
+            mCamera.takePicture(CODE_IMG)
+        }
+
         icon_done.setOnClickListener { editUnity() }
 
 
         persons_btn.setOnClickListener {
             startActivity(Intent(this,
-            AddPersonsAtUnityActivity::class.java))
+                AddPersonsAtUnityActivity::class.java))
         }
     }
 
@@ -62,6 +70,7 @@ class EditUnityActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == CODE_LOGO) {
             if (resultCode == RESULT_OK) {
+                newImg = true
                 mUri = data!!.data!!
                 GlideApp.with(this).load(mUri).centerCrop().into(unity_image)
             } else {
@@ -69,6 +78,7 @@ class EditUnityActivity : AppCompatActivity() {
             }
         } else if (requestCode == CODE_IMG) {
             if (resultCode == RESULT_OK) {
+                newImgBg = true
                 mUriImg = data!!.data!!
                 GlideApp.with(this).load(mUriImg).centerCrop().into(bg_img_unity)
             } else {
@@ -82,11 +92,10 @@ class EditUnityActivity : AppCompatActivity() {
         if(unity.name != selUnity!!.name) updatesMap["name"] = unity.name
         if (unity.shortname != selUnity!!.shortname) updatesMap["shortname"] = unity.shortname
         if(unity.text != selUnity!!.text) updatesMap["text"] = unity.text
-        if(unity.img != selUnity!!.img) updatesMap["img"] = unity.img
-        if(unity.imgmain != selUnity!!.imgmain) updatesMap["img"] = unity.imgmain
         if(unity.vk != selUnity!!.vk) updatesMap["vk"] = unity.vk
         updatesMap["users"] = usersAtUnity
-        if(newPicture) updatesMap["img"] = unity.img
+        if(newImg) updatesMap["img"] = unity.img
+        if(newImgBg) updatesMap["imgmain"] = unity.imgmain
         return updatesMap
     }
 
@@ -95,29 +104,76 @@ class EditUnityActivity : AppCompatActivity() {
         persons_btn.text = "Участники: " + usersAtUnity.size
     }
     fun editUnity() {
-        icon_done.isEnabled = false
-        if(newPicture)
+        val progressDialog = ProgressDialog(this)
+        progressDialog.setMessage("Выкладываем...")
+        progressDialog.setCancelable(false)
+        progressDialog.show()
+        if(newImg)
             mFirebase.uploadPostPhoto("unity/images/${mUri.lastPathSegment}", mUri) {
-                mFirebase.uploadPostPhoto("unity/images/${mUriImg.lastPathSegment}", mUriImg) {
-                    mFirebase.getUrl("unity/images/${mUri.lastPathSegment}") { logoUrl ->
-                        mFirebase.getUrl("unity/images/${mUriImg.lastPathSegment}") { imgUrl ->
-                            val urlLogo = logoUrl.toString()
-                            val urlBg = imgUrl.toString()
-                            mFirebase.updateUnity(selUnity!!.uid!!, updateInfo(setUnity(urlLogo, urlBg))) {
-                                uploadUnityToUser {
-                                    mFirebase.uploadUnity {
-                                        selUnity = it.findLast { it.uid == selUnity!!.uid }
-                                        finish()
-                                        showToast("Объединение было изменено")
+                if(newImgBg) {
+                    mFirebase.uploadPostPhoto("unity/images/${mUriImg.lastPathSegment}", mUriImg) {
+                        mFirebase.getUrl("unity/images/${mUri.lastPathSegment}") { logoUrl ->
+                            mFirebase.getUrl("unity/images/${mUriImg.lastPathSegment}") { imgUrl ->
+                                progressDialog.dismiss()
+                                val urlLogo = logoUrl.toString()
+                                val urlBg = imgUrl.toString()
+                                mFirebase.updateUnity(
+                                    selUnity!!.uid!!,
+                                    updateInfo(setUnity(urlLogo, urlBg))
+                                ) {
+                                    uploadUnityToUser {
+                                        mFirebase.uploadUnity {
+                                            selUnity = it.findLast { it.uid == selUnity!!.uid }
+                                            finish()
+                                            showToast("Объединение было изменено")
+                                        }
                                     }
                                 }
                             }
                         }
                     }
+                } else {
+                    mFirebase.getUrl("unity/images/${mUri.lastPathSegment}") { logoUrl ->
+                        val urlLogo = logoUrl.toString()
+                        progressDialog.dismiss()
+                        mFirebase.updateUnity(
+                            selUnity!!.uid!!,
+                            updateInfo(setUnity(urlLogo, null))
+                        ) {
+                            uploadUnityToUser {
+                                mFirebase.uploadUnity {
+                                    selUnity = it.findLast { it.uid == selUnity!!.uid }
+                                    finish()
+                                    showToast("Объединение было изменено")
+                                }
+                            }
+                        }
+
+                    }
                 }
             }
-        else {
+        else if(newImgBg) {
+            mFirebase.uploadPostPhoto("unity/images/${mUriImg.lastPathSegment}", mUriImg) {
+                mFirebase.getUrl("unity/images/${mUriImg.lastPathSegment}") { imgUrl ->
+                    progressDialog.dismiss()
+                    val urlBg = imgUrl.toString()
+                    mFirebase.updateUnity(
+                        selUnity!!.uid!!,
+                        updateInfo(setUnity(null, urlBg))
+                    ) {
+                        uploadUnityToUser {
+                            mFirebase.uploadUnity {
+                                selUnity = it.findLast { it.uid == selUnity!!.uid }
+                                finish()
+                                showToast("Объединение было изменено")
+                            }
+                        }
+                    }
+                }
+            }
+        } else {
             mFirebase.updateUnity(selUnity!!.uid!!, updateInfo(setUnity(null, null))) {
+                progressDialog.dismiss()
                 uploadUnityToUser {
                     mFirebase.uploadUnity {
                         selUnity = it.findLast { it.uid == selUnity!!.uid }
@@ -144,19 +200,19 @@ class EditUnityActivity : AppCompatActivity() {
         val uidU = selUnity!!.uid!!
         var ifHaveUnity: Boolean
         for(item in ifDeletedUsers())
-        mFirebase.database.child("users/$item/unity")
-            .addListenerForSingleValueEvent(ValueEventListenerAdapter {
-                val unityList = it.getValue<MutableList<String>>()
-                unityList!!.remove(uidU)
-                mFirebase.database.child("users/$item/unity").setValue(unityList)
-                    .addOnCompleteListener {
-                        if (it.isSuccessful) {
+            mFirebase.database.child("users/$item/unity")
+                .addListenerForSingleValueEvent(ValueEventListenerAdapter {
+                    val unityList = it.getValue<MutableList<String>>()
+                    unityList!!.remove(uidU)
+                    mFirebase.database.child("users/$item/unity").setValue(unityList)
+                        .addOnCompleteListener {
+                            if (it.isSuccessful) {
 
-                        } else {
-                            showToast(it.exception!!.message!!)
+                            } else {
+                                showToast(it.exception!!.message!!)
+                            }
                         }
-                    }
-            })
+                })
         for (item in usersAtUnity) {
             ifHaveUnity = false
             mFirebase.database.child("users/$item/unity")
@@ -198,4 +254,3 @@ class EditUnityActivity : AppCompatActivity() {
         )
     }
 }
-

@@ -78,7 +78,7 @@ class EditInfoActivity : AppCompatActivity(), PasswordDialog.Listener {
             groupList = it.children.map { it.key!! }
             group_input.setAdapter(ArrayAdapter(this, R.layout.support_simple_spinner_dropdown_item, groupList))
         })
-        
+
         group_input.threshold = 3
 
         //клик на "применить"
@@ -172,4 +172,3 @@ class EditInfoActivity : AppCompatActivity(), PasswordDialog.Listener {
         }
     }
 }
-

@@ -64,7 +64,7 @@ class AddLocalInfoActivity : AppCompatActivity() {
 
     fun saveInfo() {
         if (validateBtn(group_input.text.toString())) {
-           val editor = prefPers.edit()
+            val editor = prefPers.edit()
             mFirebase.guestAdded(null) {
                 editor.putString(personKey, it)
                 editor.putString(personFac, fac_input.text.toString())

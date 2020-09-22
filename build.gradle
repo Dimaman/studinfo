@@ -15,8 +15,8 @@ android {
         applicationId "com.scg.studinfo"
         minSdkVersion 24
         targetSdkVersion 29
-        versionCode 58
-        versionName "1.1.8"
+        versionCode 61
+        versionName "1.1.11"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
     buildTypes {

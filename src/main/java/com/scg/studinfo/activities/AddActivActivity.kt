@@ -1,6 +1,7 @@
 package com.scg.studinfo.activities
 
 import android.app.Activity
+import android.app.ProgressDialog
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
@@ -54,6 +55,8 @@ class AddActivActivity() : AppCompatActivity(), CalendarDialog.ListenerCalendar 
 
         icon_add_post.setOnClickListener { share() }
 
+        sort_check.setOnClickListener { sort_check.isSelected = !sort_check.isSelected }
+
         ch_box_razv.setOnClickListener {ch_box_razv.isSelected = !ch_box_razv.isSelected }
         ch_box_sport.setOnClickListener {ch_box_sport.isSelected = !ch_box_sport.isSelected }
         ch_box_days.setOnClickListener {ch_box_days.isSelected = !ch_box_days.isSelected }
@@ -91,7 +94,7 @@ class AddActivActivity() : AppCompatActivity(), CalendarDialog.ListenerCalendar 
         super.onResume()
         mFirebase.currentUserReference().addListenerForSingleValueEvent(ValueEventListenerAdapter {
             val user = mFirebase.getUser(it)
-            if (user.unity!!.isNotEmpty()) {
+            if (user.unity != null) {
                 kolvoUnity = user.unity.size
                 mFirebase.database.child("unity/${user.unity[selUnityActiv]}")
                     .addListenerForSingleValueEvent(
@@ -102,6 +105,9 @@ class AddActivActivity() : AppCompatActivity(), CalendarDialog.ListenerCalendar 
                             image_unity.loadCircleImage(unity.img)
                             setUinty = unity.uid!!
                         })
+            } else{
+                showToast("Вас не добавили в СМИ объединения")
+                finish()
             }
         })
 
@@ -116,6 +122,10 @@ class AddActivActivity() : AppCompatActivity(), CalendarDialog.ListenerCalendar 
         if(checkTexts()) {
             return
         }
+        val progressDialog = ProgressDialog(this)
+        progressDialog.setMessage("Выкладываем...")
+        progressDialog.setCancelable(false)
+        progressDialog.show()
         icon_add_post.isEnabled = false
         val uid = mFirebase.chUid()
         mFirebase.uploadPostPhoto(null, mUri) {
@@ -129,6 +139,7 @@ class AddActivActivity() : AppCompatActivity(), CalendarDialog.ListenerCalendar 
                         "users/${uid}/images/${mUri.lastPathSegment}"
                     )
                 ) {
+                    progressDialog.dismiss()
                     finish()
                     showToast("Ваше сообщение выложено в новости")
                 }
@@ -174,7 +185,7 @@ class AddActivActivity() : AppCompatActivity(), CalendarDialog.ListenerCalendar 
             image = url,
             startTime = dateCal.timeInMillis,
             text = text_active.text.toString(),
-            sortWord = sortUnity,
+            sortWord = if(sort_check.isSelected) null else sortUnity,
             img = img,
             kategories = cache.toList(),
             domColor = dominColor
@@ -192,4 +203,3 @@ class AddActivActivity() : AppCompatActivity(), CalendarDialog.ListenerCalendar 
         }
     }
 }
-
