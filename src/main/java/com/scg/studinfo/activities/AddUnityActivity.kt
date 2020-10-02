@@ -72,7 +72,6 @@ class AddUnityActivity : AppCompatActivity() {
         progressDialog.setMessage("Сохраняем...")
         progressDialog.setCancelable(false)
         progressDialog.show()
-        Handler().postDelayed({progressDialog.dismiss()}, 10000)
         mFirebase.uploadPostPhoto("unity/images/${mUriLogo.lastPathSegment}", mUriLogo) {
             mFirebase.uploadPostPhoto("unity/images/${mUriImg.lastPathSegment}", mUriImg) {
                 mFirebase.getUrl("unity/images/${mUriLogo.lastPathSegment}") {logoUrl ->

@@ -43,7 +43,11 @@
         android:layout_width="match_parent"
         style="@style/activ_text"
         android:layout_height="wrap_content"
-        android:text="Это первое сообщение, которое вы увидите (СНО рулит)"
+        android:shadowColor="@color/black"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="2"
+        android:text="Это первое сообщение, которое вы увидите"
         app:layout_constraintTop_toTopOf="@id/domination_color_bg"
         app:layout_constraintBottom_toTopOf="@id/activ_who"
         android:layout_marginTop="10dp"/>
@@ -52,6 +56,10 @@
         android:id="@+id/activ_who"
         style="@style/activ_who_st"
         android:text="activ_who"
+        android:shadowColor="@color/black"
+        android:shadowDx="1"
+        android:shadowDy="1"
+        android:shadowRadius="1"
         app:layout_constraintStart_toStartOf="@id/domination_color_bg"
         app:layout_constraintBottom_toBottomOf="@id/domination_color_bg"/>
 

@@ -101,6 +101,10 @@ class AddActivActivity() : AppCompatActivity(), CalendarDialog.ListenerCalendar 
                         ValueEventListenerAdapter {
                             val unity = mFirebase.getUnity(it)
                             sortUnity = unity.sortword
+                            if(unity.sortword.isNullOrEmpty()){
+                                sort_check.isEnabled = false
+                                sort_check.isSelected = true
+                            }
                             unity_text.text = unity.name
                             image_unity.loadCircleImage(unity.img)
                             setUinty = unity.uid!!
@@ -119,6 +123,15 @@ class AddActivActivity() : AppCompatActivity(), CalendarDialog.ListenerCalendar 
     }
 
     private fun share() {
+        if(title_activ.text.toString() == "Rick Astley"
+            && text_active.text.toString() == "Never Gonna Give You Up"){
+            val rickroll = Intent(
+                Intent.ACTION_VIEW,
+                Uri.parse("https://www.youtube.com/watch?v=dQw4w9WgXcQ")
+            )
+            startActivity(rickroll)
+            return
+        }
         if(checkTexts()) {
             return
         }

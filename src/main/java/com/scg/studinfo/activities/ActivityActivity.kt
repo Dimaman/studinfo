@@ -40,7 +40,7 @@ class ActivityActivity : BaseActivity(0) {
         icon_add_new.visibility = View.INVISIBLE
 
         mFirebase = FireBaseHelper(this)
-        if(mFirebase.auth.currentUser != null) {
+        if (mFirebase.auth.currentUser != null) {
             mFirebase.currentUserReference()
                 .addListenerForSingleValueEvent(ValueEventListenerAdapter {
                     val user = it.getValue(User::class.java)!!.copy(uid = it.key)
@@ -64,10 +64,12 @@ class ActivityActivity : BaseActivity(0) {
                 for (item in posts) {
                     if (!item.isDelete) {
                         val cacheSave = getSaveSetting(this)
-                        if (checkBtn(cacheSave.toList())) {
-                            if (item.kategories != null) {
-                                if (item.sortWord == null || (item.sortWord == "f${prefPers.getString(
-                                        personFac, null)}")) {
+                        if (item.sortWord == null || (item.sortWord == "f${prefPers.getString(
+                                personFac, null
+                            )}")
+                        ) {
+                            if (checkBtn(cacheSave.toList())) {
+                                if (item.kategories != null) {
                                     if (checkBtn(cacheSave.toList(), item.kategories)) {
                                         if (item.startTime != null) {
                                             if (item.startTime > System.currentTimeMillis()) {
@@ -75,24 +77,24 @@ class ActivityActivity : BaseActivity(0) {
                                             } else sortOldPosts.add(item)
                                         } else sortOldPosts.add(item)
                                     }
-                            }
-                            }
-                        } else {
-                            if (item.startTime != null) {
-                                if (item.startTime > System.currentTimeMillis()) {
-                                    sortPosts.add(item)
+                                }
+                            } else {
+                                if (item.startTime != null) {
+                                    if (item.startTime > System.currentTimeMillis()) {
+                                        sortPosts.add(item)
+                                    } else sortOldPosts.add(item)
                                 } else sortOldPosts.add(item)
-                            } else sortOldPosts.add(item)
+                            }
                         }
                     }
                 }
                 sortPosts.sortByDescending { it.startTime }
                 val lastListPosts = mutableListOf(FeedPost())
                 lastListPosts.clear()
-                if(sortPosts.isNotEmpty())
+                if (sortPosts.isNotEmpty())
                     lastListPosts.add(FeedPost(uidNews = "split", uid = "Актуальное"))
                 lastListPosts.addAll(sortPosts)
-                if(sortOldPosts.isNotEmpty())
+                if (sortOldPosts.isNotEmpty())
                     lastListPosts.add(FeedPost(uidNews = "split", uid = "Нектуальное"))
                 lastListPosts.addAll(sortOldPosts)
                 mFirebase.uploadUnity {
@@ -101,7 +103,9 @@ class ActivityActivity : BaseActivity(0) {
                         lastListPosts, posts, this, it, this
                     )
                     feed_recycler.layoutManager = LinearLayoutManager(this)
+                    return@uploadUnity
                 }
+                return@ValueEventListenerAdapter
             })
 
         icon_add_new.setOnClickListener { addImageMenu() }
@@ -117,6 +121,7 @@ class ActivityActivity : BaseActivity(0) {
         }
         return false
     }
+
     fun checkBtn(li: List<Boolean>): Boolean {
         for (i in 0..5) {
             if (li[i]) return true
@@ -125,15 +130,16 @@ class ActivityActivity : BaseActivity(0) {
     }
 }
 
-class FeedAdapter (private val posts: List<FeedPost>,
-                   private val allPosts: List<FeedPost>, private val activ: Activity,
-                   private val unity: List<Unity>, private val context: Context)
-    : RecyclerView.Adapter<FeedAdapter.ViewHolder>() {
-    class ViewHolder (val view: View) : RecyclerView.ViewHolder(view)
+class FeedAdapter(
+    private val posts: List<FeedPost>,
+    private val allPosts: List<FeedPost>, private val activ: Activity,
+    private val unity: List<Unity>, private val context: Context
+) : RecyclerView.Adapter<FeedAdapter.ViewHolder>() {
+    class ViewHolder(val view: View) : RecyclerView.ViewHolder(view)
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder{
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view: View
-        if(viewType == 1)
+        if (viewType == 1)
             view = LayoutInflater.from(parent.context)
                 .inflate(R.layout.feed_split_item, parent, false)
         else
@@ -141,11 +147,12 @@ class FeedAdapter (private val posts: List<FeedPost>,
                 .inflate(R.layout.feed_item, parent, false)
         return ViewHolder(view)
     }
+
     override fun getItemCount() = posts.size
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val firebase = FireBaseHelper(activ)
-        if(getItemViewType(position) == 0) {
+        if (getItemViewType(position) == 0) {
             holder.view.image_activ.loadImage(posts[position].image!!, true)
             correctGradient(holder.view, position)
             if (posts[position].startTime != null) {
@@ -155,8 +162,7 @@ class FeedAdapter (private val posts: List<FeedPost>,
                     holder.view.domination_color_bg.background.colorFilter =
                         ColorMatrixColorFilter(ColorMatrix().apply { setSaturation(0f) })
                 }
-            }
-            else {
+            } else {
                 holder.view.image_activ.colorFilter =
                     ColorMatrixColorFilter(ColorMatrix().apply { setSaturation(0f) })
                 holder.view.domination_color_bg.background.colorFilter =
@@ -192,9 +198,8 @@ class FeedAdapter (private val posts: List<FeedPost>,
     }
 
 
-
     override fun getItemViewType(position: Int): Int {
-        return if(posts[position].uidNews == "split") 1
+        return if (posts[position].uidNews == "split") 1
         else 0
     }
 
@@ -237,8 +242,7 @@ class FeedAdapter (private val posts: List<FeedPost>,
         cachePosts.clear()
         cachePosts.addAll(allPosts)
         for (post in cachePosts) {
-            if(post.uidNews == uid)
-            {
+            if (post.uidNews == uid) {
                 post.isDelete = true
             }
         }
@@ -257,7 +261,6 @@ class FeedAdapter (private val posts: List<FeedPost>,
         val colors = intArrayOf(
             Color.parseColor("#00000000"),
             posts[position].domColor!!,
-            posts[position].domColor!!,
             posts[position].domColor!!
         )
         val drawBg = (GradientDrawable(GradientDrawable.Orientation.TOP_BOTTOM, colors))
@@ -265,4 +268,3 @@ class FeedAdapter (private val posts: List<FeedPost>,
         view.domination_color_bg.background = drawBg
     }
 }
-
