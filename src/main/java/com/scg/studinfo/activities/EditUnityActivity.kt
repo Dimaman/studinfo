@@ -252,7 +252,7 @@ class EditUnityActivity : AppCompatActivity() {
             vk = text_vk.text.toString(),
             img = url,
             imgmain = url2,
-            sortword = text_sort.text.toString()
+            sortword = if(text_sort.text.toString() == "") null else text_sort.text.toString()
         )
     }
 }

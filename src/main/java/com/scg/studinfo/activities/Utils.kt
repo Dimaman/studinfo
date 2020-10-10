@@ -37,7 +37,7 @@ fun Context.showToast(text: String, duration: Int = Toast.LENGTH_SHORT) {
 }
 
 
-const val stringVersion = "1.1.13"
+const val stringVersion = "1.1.15"
 
 //Сохраненные данные
 val PERSON_INFO = "PERSON_INFO"
@@ -76,7 +76,7 @@ var imageNews: Bitmap? = null
 val listFac = arrayListOf(
     "ИНГЭ",
     "ИКСиИБ",
-    "ИППиП",
+    "ИПиПП",
     "ИЭУБ",
     "ИСТИ",
     "ИМА",

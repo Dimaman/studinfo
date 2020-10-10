@@ -131,7 +131,7 @@ class AddUnityActivity : AppCompatActivity() {
             vk = text_vk.text.toString(),
             img = urlLogo,
             imgmain = urlImg,
-            sortword = text_sort.text.toString()
+            sortword = if(text_sort.text.toString() == "") null else text_sort.text.toString()
         )
     }
 }

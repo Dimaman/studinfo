@@ -17,6 +17,10 @@ class ItemNewsActivity : AppCompatActivity() {
 
         image_news.clipToOutline = true
 
+        icon_back.setOnClickListener {
+            finishAfterTransition()
+        }
+
         mFirebase = FireBaseHelper(this)
         image_news.setImageBitmap(imageNews)
         imageNews = null
@@ -26,17 +30,16 @@ class ItemNewsActivity : AppCompatActivity() {
                 title_news.text = itemPost!!.title
                 text_news.text = itemPost.text
                 if(itemPost.startTime != null)
-                    time_text.text = timeText(itemPost.startTime)
+                    text_toolbar_up.text = timeText(itemPost.startTime)
             })
     }
 
     fun timeText(time: Long): String {
         val cal = Calendar.getInstance()
         var str = ""
-        if (cal.get(Calendar.MONTH) < 9)
+        if (cal.get(Calendar.MONTH) < 8)
             str = "0"
         cal.timeInMillis = time
-        return "${cal.get(Calendar.DAY_OF_MONTH)}/$str${cal.get(Calendar.MONTH) + 1}/${cal.get(
-            Calendar.YEAR)}"
+        return "${cal.get(Calendar.DAY_OF_MONTH)}.$str${cal.get(Calendar.MONTH) + 1}.${cal.get(Calendar.YEAR)}"
     }
 }
