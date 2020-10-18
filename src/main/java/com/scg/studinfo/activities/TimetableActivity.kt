@@ -42,7 +42,7 @@ import kotlinx.coroutines.launch
 
 
 class TimetableActivity : BaseActivity(1) {
-    private lateinit var mFirebase : FireBaseHelper
+    private lateinit var mFirebase: FireBaseHelper
     private lateinit var prefPers: SharedPreferences
     private val NOTIFY_ID = 101
 
@@ -69,7 +69,6 @@ class TimetableActivity : BaseActivity(1) {
         tabLTab!!.select()
 
 
-
         //уведомления
         /*createNotificationChannel()
         buildNotification()*/
@@ -94,9 +93,9 @@ class TimetableActivity : BaseActivity(1) {
         checkAuth()
     }
 
-    private fun checkAuth () {
-        if(!mFirebase.isLogged){
-            if(prefPers.getString(personFac, null) == null || prefPers.getString(personGroup, null) == null) {
+    private fun checkAuth() {
+        if (!mFirebase.isLogged) {
+            if (prefPers.getString(personFac, null) == null) {
                 startActivity(Intent(this, AddLocalInfoActivity::class.java))
                 finish()
             } else {
@@ -108,16 +107,13 @@ class TimetableActivity : BaseActivity(1) {
                 }
             }
         } else {
-            if (prefPers.getString(personFac, null) == null) {
-                startActivity(Intent(this, AddLocalInfoActivity::class.java))
-                finish()
-            } else {
-                mFirebase.openApp()
-                checkVersion()
-            }
+            val editor = prefPers.edit()
+            editor.putString(personKey, mFirebase.chUid())
+            editor.apply()
+            mFirebase.openApp()
+            checkVersion()
         }
     }
-
 
 
     private fun createNotificationChannel() {
@@ -138,34 +134,17 @@ class TimetableActivity : BaseActivity(1) {
     }
 
 
-
-    private val timeNow = System.currentTimeMillis()
-
-    private fun weekDay(time: Long): String {
-        val calendar = Calendar.getInstance()
-        calendar.timeInMillis = time
-        val numWeek = calendar.get(Calendar.DAY_OF_WEEK)
-        return when (numWeek) {
-            2 -> "monday"
-            3 -> "tuesday"
-            4 -> "wednesday"
-            5 -> "thursday"
-            6 -> "friday"
-            7 -> "saturday"
-            else -> "sunday"
-        }
-    }
-
-
-
     private fun checkVersion() {
-        mFirebase.database.child("version").addListenerForSingleValueEvent(ValueEventListenerAdapter {
+        mFirebase.database.child("version")
+            .addListenerForSingleValueEvent(ValueEventListenerAdapter {
 
-            if(!(stringVersion == it.value.toString()))
-            {
-                UpdateVersionDialogFragment(it.value.toString()).show(supportFragmentManager, "upd")
-            }
-        })
+                if (!(stringVersion == it.value.toString())) {
+                    UpdateVersionDialogFragment(it.value.toString()).show(
+                        supportFragmentManager,
+                        "upd"
+                    )
+                }
+            })
     }
 
 
@@ -176,6 +155,7 @@ class TimeTableFragmentPagerAdapter(fm: FragmentManager?) :
     val PAGE_COUNT = 3
     private val tabTitles =
         arrayOf("Нечетная неделя", "Сегодня", "Четная неделя")
+
     override fun getCount(): Int {
         return PAGE_COUNT
     }
@@ -229,9 +209,9 @@ class TimetableFragment : Fragment() {
             calendar.timeInMillis = time
             val numWeek = calendar.get(Calendar.WEEK_OF_YEAR)
             val weekText = if (it) {
-                if (numWeek % 2 == 1)  "чет" else "нечет"
+                if (numWeek % 2 == 1) "чет" else "нечет"
             } else {
-                if (numWeek % 2 == 1)  "нечет" else "чет"
+                if (numWeek % 2 == 1) "нечет" else "чет"
             }
             onSuccess(weekText)
         }
@@ -280,10 +260,15 @@ class TimetableFragment : Fragment() {
 
         if (mPage == 1) {
             view = inflater.inflate(R.layout.fragment_timetable_now, container, false)
-            view.day_of_week_now.text = weekDayRus()
+            view.day_of_week_now.text = "${weekDayRus()}\n"
+            chetNechet(System.currentTimeMillis()) {
+                if (it == "чет")
+                    view.day_of_week_now.text = "${weekDayRus()}\nЧетная неделя"
+                else
+                    view.day_of_week_now.text = "${weekDayRus()}\nНечетная неделя"
+            }
             view.holiday_text.text = "Загрузка"
-        }
-        else {
+        } else {
             view = inflater.inflate(R.layout.fragment_timetable, container, false)
         }
         mFirebase.database.child("timetable/${pref.getString(personGroup, "")}")
@@ -368,8 +353,9 @@ class TimetableFragment : Fragment() {
     }
 }
 
-class TimetableAdapter (private val itemsT: List<TimetableWeek>, private val context: Context) :RecyclerView.Adapter<TimetableAdapter.ViewHolder>() {
-    class ViewHolder (val view: View) : RecyclerView.ViewHolder(view)
+class TimetableAdapter(private val itemsT: List<TimetableWeek>, private val context: Context) :
+    RecyclerView.Adapter<TimetableAdapter.ViewHolder>() {
+    class ViewHolder(val view: View) : RecyclerView.ViewHolder(view)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TimetableAdapter.ViewHolder {
 
@@ -377,7 +363,6 @@ class TimetableAdapter (private val itemsT: List<TimetableWeek>, private val con
             .inflate(R.layout.item_week, parent, false)
         return ViewHolder(view)
     }
-
 
 
     override fun getItemCount(): Int = itemsT.size
@@ -389,12 +374,11 @@ class TimetableAdapter (private val itemsT: List<TimetableWeek>, private val con
     }
 
 
-
-
 }
 
-class TimetableItemAdapter(private val itemsT: List<TimetableItem>) :RecyclerView.Adapter<TimetableItemAdapter.ViewHolder>() {
-    class ViewHolder (val view: View) : RecyclerView.ViewHolder(view)
+class TimetableItemAdapter(private val itemsT: List<TimetableItem>) :
+    RecyclerView.Adapter<TimetableItemAdapter.ViewHolder>() {
+    class ViewHolder(val view: View) : RecyclerView.ViewHolder(view)
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 

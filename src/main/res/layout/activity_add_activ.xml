@@ -152,11 +152,23 @@
                 android:text="Для всех"
                 android:textColor="@color/colorText"/>
 
+            <Button
+                android:id="@+id/budu_check"
+                android:background="@drawable/inter_selector"
+                app:layout_constraintTop_toBottomOf="@id/sort_check"
+                app:layout_constraintStart_toStartOf="parent"
+                android:layout_height="50dp"
+                android:layout_width="150dp"
+                android:padding="10dp"
+                android:layout_margin="10dp"
+                android:text="Кнопка 'Буду'"
+                android:textColor="@color/colorText"/>
+
             <TextView
                 android:id="@+id/inter_text"
                 style="@style/view_text"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/sort_check"
+                app:layout_constraintTop_toBottomOf="@id/budu_check"
                 android:text="Интересы"
                 />
 

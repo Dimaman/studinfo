@@ -18,11 +18,10 @@
         android:id="@+id/day_of_week_now"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Сегодня"
+        android:text="Сегодня\n"
         android:textSize="20sp"
         android:textAlignment="center"
         app:layout_constraintTop_toTopOf="@id/tt_ram"
-        android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
 

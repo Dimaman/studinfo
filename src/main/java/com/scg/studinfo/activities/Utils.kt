@@ -37,7 +37,7 @@ fun Context.showToast(text: String, duration: Int = Toast.LENGTH_SHORT) {
 }
 
 
-const val stringVersion = "1.1.15"
+const val stringVersion = "1.1.17"
 
 //Сохраненные данные
 val PERSON_INFO = "PERSON_INFO"
@@ -86,14 +86,6 @@ var selUnity: Unity? = null
 
 //добавление объединения
 var usersAtUnity = mutableListOf<String>()
-
-
-fun goLoadDialog(context: Context){
-    val progressDialog = ProgressDialog(context)
-    progressDialog.setMessage("Входим...")
-    progressDialog.show()
-}
-
 
 fun getDatetime(): Calendar {
     val calendar = Calendar.getInstance()

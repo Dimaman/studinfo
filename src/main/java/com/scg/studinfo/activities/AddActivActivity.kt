@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.activity_add_activ.*
 import java.util.*
 
 
-class AddActivActivity() : AppCompatActivity(), CalendarDialog.ListenerCalendar {
+class AddActivActivity : AppCompatActivity(), CalendarDialog.ListenerCalendar {
     private lateinit var mFirebase: FireBaseHelper
     private lateinit var mCamera: CameraHelper
     private lateinit var mUri: Uri
@@ -56,6 +56,7 @@ class AddActivActivity() : AppCompatActivity(), CalendarDialog.ListenerCalendar 
         icon_add_post.setOnClickListener { share() }
 
         sort_check.setOnClickListener { sort_check.isSelected = !sort_check.isSelected }
+        budu_check.setOnClickListener { budu_check.isSelected = !budu_check.isSelected }
 
         ch_box_razv.setOnClickListener {ch_box_razv.isSelected = !ch_box_razv.isSelected }
         ch_box_sport.setOnClickListener {ch_box_sport.isSelected = !ch_box_sport.isSelected }
@@ -199,6 +200,7 @@ class AddActivActivity() : AppCompatActivity(), CalendarDialog.ListenerCalendar 
             startTime = dateCal.timeInMillis,
             text = text_active.text.toString(),
             sortWord = if(sort_check.isSelected) null else sortUnity,
+            checkBtn = budu_check.isSelected,
             img = img,
             kategories = cache.toList(),
             domColor = dominColor

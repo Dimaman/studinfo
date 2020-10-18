@@ -18,7 +18,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         tools:ignore="GoogleAppIndexingWarning">
-        <activity android:name=".activities.StatsAppActivity"></activity>
+        <activity android:name=".activities.StatsNewsActivity"></activity>
+        <activity android:name=".activities.InfoToActivityActivity" />
+        <activity android:name=".activities.StatsAppActivity" />
         <activity android:name=".activities.AdminActivity" />
         <activity android:name=".activities.ResetPassActivity" />
         <activity android:name=".activities.EditlocalInfoActivity" />

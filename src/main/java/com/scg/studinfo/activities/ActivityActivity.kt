@@ -98,7 +98,6 @@ class ActivityActivity : BaseActivity(0) {
                     lastListPosts.add(FeedPost(uidNews = "split", uid = "Нектуальное"))
                 lastListPosts.addAll(sortOldPosts)
                 mFirebase.uploadUnity {
-
                     feed_recycler.adapter = FeedAdapter(
                         lastListPosts, posts, this, it, this
                     )
@@ -176,14 +175,23 @@ class FeedAdapter(
                     .addListenerForSingleValueEvent(ValueEventListenerAdapter {
                         val user = it.getValue(User::class.java)!!.copy(uid = it.key)
                         firebase.checkRole {
-                            holder.view.icon_edit_post.isEnabled = it == "admin"
+                            if (it != null) {
+                                if (it == "admin") {
+                                    holder.view.icon_edit_post.isEnabled = true
+                                } else {
+                                    holder.view.icon_edit_post.isEnabled =
+                                        posts[position].user == firebase.chUid()
+                                }
+                            } else {
+                                holder.view.icon_edit_post.isEnabled = false
+                            }
                         }
                     })
             } else {
                 holder.view.icon_edit_post.isEnabled = false
             }
             holder.view.icon_edit_post.setOnClickListener {
-                openPopmenu(holder.view.icon_edit_post, posts[position].uidNews!!)
+                openPopmenu(holder.view.icon_edit_post, position)
             }
             holder.view.image_activ.loadImage(posts[position].image!!, true)
             holder.view.title_activ.text = posts[position].title
@@ -206,7 +214,6 @@ class FeedAdapter(
     private fun openView(position: Int, view: View) {
         itemNews = posts[position].uidNews
         imageNews = view.image_activ.drawToBitmap()
-        /*activ.startActivity(Intent(activ, ItemNewsActivity::class.java))*/
         var bundle: Bundle? = null
         val v: View = view.findViewById(R.id.image_activ)
         val options = ActivityOptions.makeSceneTransitionAnimation(
@@ -223,12 +230,17 @@ class FeedAdapter(
         }
     }
 
-    private fun openPopmenu(icon: View, uid: String) {
+    private fun openPopmenu(icon: View, position: Int) {
         val popMenu = showPopup(context, icon, R.menu.item_feed_menu)
         popMenu.setOnMenuItemClickListener {
             return@setOnMenuItemClickListener when (it.itemId) {
+                R.id.stats_news -> {
+                    itemNews = posts[position].uidNews!!
+                    activ.startActivity(Intent(activ, StatsNewsActivity::class.java))
+                    true
+                }
                 R.id.delete_news -> {
-                    deleteNew(uid)
+                    deleteNew(posts[position].uidNews!!)
                     true
                 }
                 else -> false
